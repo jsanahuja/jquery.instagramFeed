@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<script type="text/javascript" src="https://cdn.shurimages.com/js/libs/jquery.min.js"></script>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			body{font-family:monospace;padding:0;margin:0;}
+			pre{border-radius:6px;padding:0.2em 0.5em;box-sizing:border-box;overflow-x:auto;}
+			pre strong{font-weight:bold;color:#00abff;}
+			.section_title{padding:3em 0em;text-align:center;color:#FFF;background:#000;margin-bottom:1em;}
+			.section_title:first-child{padding:2em 0em;}
+			.section_title:last-child{margin-bottom:0;}
+			.section_title h3{font-size:2em;}
+			.section_title h4{font-size:1.2em;margin-top:0.5em;}
+			.section_code{padding: 1em 0em;background:#555;}
+			.section_code h4{width:100%;max-width:1200px;margin:0 auto;font-size:1.2em;color:#FFF;}
+			.section_code pre{width:100%;max-width:1200px;margin:0 auto;background:#777;color:#CCC;border:1px #555 solid;}
+			.info pre{background-color:#999;color:#EEE;}
+			.info pre strong{color:#00ffba;}
+			.instagram_feed{width:100%;max-width:1200px;margin:0 auto;overflow:hidden;}
+			.info{padding-bottom:2em;}
+			.info p{font-size: 1.2em;margin-bottom: 0.3em;}
+			h4.big{font-size:2em;}
+			h1{font-size:2.5em;margin-bottom:1em;}
+			a{color:#2955ff}
+		</style>
+	</head>
+	<body>
+<div>
+	<div class="section_title">
+		<h1><a href="https://github.com/BanNsS1/jquery.instagramFeed">jquery.instagramFeed</a></h1>
+		<h3>Default feed styling</h3>
+		<h4>Don't like it? Keep scrolling</h4>
+	</div>
+	<div id="instagram-feed1" class="instagram_feed"></div>
+	<div class="section_code">
+		<h4>Code:</h4>
+		<pre>
+&lt;script type="text/javascript" src="jquery.instagramFeed.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	(function($){
+		$(window).on('load', function(){
+			$.instagramFeed({
+				'username': 'instagram',
+				'container': "#instagram-feed1",
+				'display_profile': true,
+				'display_biography': true,
+				'display_gallery': true,
+				'get_raw_json': false,
+				'callback': null,
+				'styling': true,
+				'items': 8,
+				'items_per_row': 4,
+				'margin': 1 
+			});
+		});
+	})(jQuery);
+&lt;/script&gt;
+		</pre>
+	</div>
+</div>
+<div>
+	<div class="section_title">
+		<h3>Only want images?</h3>
+		<h4>Disable <i>display_profile</i> and <i>display_biography</i></h4>
+	</div>
+	<div id="instagram-feed2" class="instagram_feed"></div>
+	<div class="section_code">
+		<h4>Code:</h4>
+		<pre>
+&lt;script type="text/javascript" src="jquery.instagramFeed.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	(function($){
+		$(window).on('load', function(){
+			$.instagramFeed({
+				'username': 'github',
+				'container': "#instagram-feed2",
+				<strong>'display_profile': false,
+				'display_biography': false,</strong>
+				'display_gallery': true,
+				'get_raw_json': false,
+				'callback': null,
+				'styling': true,
+				'items': 8,
+				'items_per_row': 4,
+				'margin': 1 
+			});
+		});
+	})(jQuery);
+&lt;/script&gt;
+		</pre>
+	</div>
+</div>
+<div>
+	<div class="section_title">
+		<h3>Want to load more or change the display?</h3>
+		<h4>Change <i>items</i>, <i>items_per_row</i> and <i>margin</i></h4>
+	</div>
+	<div id="instagram-feed3" class="instagram_feed"></div>
+	<div class="section_code">
+		<h4>Code:</h4>
+		<pre>
+&lt;script type="text/javascript" src="jquery.instagramFeed.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	(function($){
+		$(window).on('load', function(){
+			$.instagramFeed({
+				'username': 'zara',
+				'container': "#instagram-feed3",
+				'display_profile': false,
+				'display_biography': false,
+				'display_gallery': true,
+				'get_raw_json': false,
+				'callback': null,
+				'styling': true,
+				<strong>'items': 12,
+				'items_per_row': 6,
+				'margin': 0.25</strong>
+			});
+		});
+	})(jQuery);
+&lt;/script&gt;
+		</pre>
+	</div>
+</div>
+<div>
+	<div class="section_title">
+		<h3>Don't like our styles at all?</h3>
+		<h4>Make your owns disabling <i>styling</i></h4>
+	</div>
+	<div class="instagram_feed info">
+		<p>This is the html you will have (Note we have enabled profile and biography in this case).</p>
+		<pre>
+&lt;div class=&quot;<strong>instagram_profile</strong>&quot;&gt;
+	&lt;img class=&quot;<strong>instagram_profile_image</strong>&quot; src=&quot;...&quot; alt=&quot;Instagram profile pic&quot;&gt;
+	&lt;p class=&quot;<strong>instagram_username</strong>&quot;&gt;@Instagram (&lt;a href=&quot;...&quot;&gt;@instagram&lt;/a&gt;)&lt;/p&gt;
+	&lt;p class=&quot;<strong>instagram_biography</strong>&quot;&gt;....&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;<strong>instagram_gallery</strong>&quot;&gt;
+	&lt;a href=&quot;https://www.instagram.com/p/Bh-P3IoDxyB&quot; target=&quot;_blank&quot;&gt;
+		&lt;img src=&quot;...&quot; alt=&quot;instagram instagram image 0&quot; /&gt;
+	&lt;/a&gt;
+	.
+	.
+	.
+&lt;/div&gt;
+		</pre>
+	</div>
+	<div class="section_code">
+		<h4>Code:</h4>
+		<pre>
+&lt;script type="text/javascript" src="jquery.instagramFeed.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	(function($){
+		$(window).on('load', function(){
+			$.instagramFeed({
+				'username': 'instagram',
+				'container': "#instagram-feed3",
+				'display_profile': true,
+				'display_biography': true,
+				'display_gallery': true,
+				'get_raw_json': false,
+				'callback': null,
+				<strong>'styling': false,</strong>
+				'items': 12,
+			});
+		});
+	})(jQuery);
+&lt;/script&gt;
+		</pre>
+	</div>
+</div>
+<div>
+	<div class="section_title">
+		<h3>Don't either like our template?</h3>
+		<h4>Set <i>get_raw_json</i> to <i>true</i> and define a <i>callback</i></h4>
+	</div>
+	<div class="instagram_feed info">
+		<p>This is the json format you will get.</p>
+		<pre id="jsonHere">
+{
+    "id": "25025320",
+    "username": "instagram",
+    "full_name": "Instagram",
+    "is_private": false,
+    "is_verified": true,
+    "biography": "Discovering — and telling — stories from around the world. Founded in 2010 by @kevin and @mikeyk.",
+    "followed_by": 234540102,
+    "following": 181,
+    "images": [
+		{
+			"node": {
+				"__typename": "GraphImage",
+				"id": "1764917863506713729",
+				"edge_media_to_caption": {
+					"edges": [{
+						"node": {
+							"text": "Photo by @safromabove\nAny gnomes down there? “This spot has always been a favorite of mine,” says drone photographer Bo Le (@safromabove). “It looks like a magic garden out of a fairy tale.” #WHP🌲"
+						}
+					}]
+				},
+				"shortcode": "Bh-P3IoDxyB",
+				"edge_media_to_comment": {
+					"count": 5535
+				},
+				"comments_disabled": false,
+				"taken_at_timestamp": 1524614626,
+				"dimensions": {
+					"height": 1350,
+					"width": 1080
+				},
+				"display_url": "https://instagram.fmad3-5.fna.fbcdn.net/vp/93a69c8cc3a402da587d1883b3893fc3/5B77310C/t51.2885-15/e35/30829708_127558864683780_2430851872064536576_n.jpg",
+				"edge_liked_by": {
+					"count": 821544
+				},
+				"edge_media_preview_like": {
+					"count": 821544
+				},
+				"gating_info": null,
+				"media_preview": "ACEqyFiJzjtVgW5/jIHGR/hSxDc/cDvg4+hqznOVIyMcH09/zqL6gVPKJHA6daik54HGKv8A3PlP59v/ANdQyL7cjrRcCjhvain59qKoRdtmIIIySeo4xjrzUrkt8w69wOMe1VCDCQM5FWUAdQewOSM1NtR67DPvAEH5hnjGac7BVyThvwNOZl4ABwahcBgSOMdM0ySvv+tFMy1FUO7JGYvyfwqWI7fmOPTB/wAKVgM/n/So/wCEVCdxsnDkDB5BPB9Pp7VUkVuppzGpJf6f0qkCVyr+NFNopiP/2Q==",
+				"owner": {
+					"id": "25025320"
+				},
+				"thumbnail_src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/e0be8fe70e152dca20e1729e62d51567/5B995BDE/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+				"thumbnail_resources": [{
+					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/b029fbeb1afff1050d3683cfcfac5b03/5B677930/t51.2885-15/s150x150/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+					"config_width": 150,
+					"config_height": 150
+				}, {
+					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/9ab93dc05d98fd8b022eed9c0dcab9aa/5B59B65B/t51.2885-15/s240x240/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+					"config_width": 240,
+					"config_height": 240
+				}, {
+					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/739cb09783e5cd962538f660fe2dc1f0/5B9D8093/t51.2885-15/s320x320/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+					"config_width": 320,
+					"config_height": 320
+				}, {
+					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/c6ef9d03df001593a2fe0ec9cb49989c/5B7DC679/t51.2885-15/s480x480/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+					"config_width": 480,
+					"config_height": 480
+				}, {
+					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/e0be8fe70e152dca20e1729e62d51567/5B995BDE/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+					"config_width": 640,
+					"config_height": 640
+				}],
+				"is_video": false
+			}
+		},
+		......
+	]
+}
+		</pre>
+	</div>
+	<div class="section_code">
+		<h4>Code:</h4>
+		<pre>
+&lt;script type="text/javascript" src="jquery.instagramFeed.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	(function($){
+		$(window).on('load', function(){
+			function displayRaw(json){
+				$('#jsonHere').html(json);
+			}
+			$.instagramFeed({
+				'username': 'instagram',
+				<strong>'get_raw_json': true,
+				'callback': displayRaw</strong>
+			});
+		});
+	})(jQuery);
+&lt;/script&gt;
+		</pre>
+	</div>
+</div>
+<div>
+	<div class="section_title">
+		<h3>Still not enough?</h3>
+		<h4 class="big"><a href="https://github.com/BanNsS1/jquery.instagramFeed">Send your request or just fork!</a></h4>
+	</div>
+</div>
+
+	<script type="text/javascript" src="jquery.instagramFeed.js"></script>
+	<script type="text/javascript">
+		(function($){
+			$(window).on('load', function(){
+				/*function displayRaw(json){
+					console.log(json);
+				}
+				$.instagramFeed({
+					'username': 'github',
+					'get_raw_json': true,
+					'callback': displayRaw
+				});*/
+				
+				$.instagramFeed({
+					'username': 'instagram',
+					'container': "#instagram-feed1",
+					'display_profile': true,
+					'display_biography': true,
+					'display_gallery': true,
+					'get_raw_json': false,
+					'callback': null,
+					'styling': true,
+					'items': 8,
+					'items_per_row': 4,
+					'margin': 1
+				});	
+				
+				$.instagramFeed({
+					'username': 'github',
+					'container': "#instagram-feed2",
+					'display_profile': false,
+					'display_biography': false,
+					'display_gallery': true,
+					'get_raw_json': false,
+					'callback': null,
+					'styling': true,
+					'items': 8,
+					'items_per_row': 4,
+					'margin': 1
+				});
+				$.instagramFeed({
+					'username': 'zara',
+					'container': "#instagram-feed3",
+					'display_profile': false,
+					'display_biography': false,
+					'display_gallery': true,
+					'get_raw_json': false,
+					'callback': null,
+					'styling': true,
+					'items': 12,
+					'items_per_row': 6,
+					'margin': 0.25
+				});
+			});
+		})(jQuery);
+	</script>
+	</body>
+</html>
