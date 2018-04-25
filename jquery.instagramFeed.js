@@ -1,3 +1,13 @@
+/*!
+ * jquery.instagramFeed
+ *
+ * @version 1.0
+ *
+ * @author Javier Sanahuja Liebana <bannss1@gmail.com>
+ *
+ * https://github.com/BanNsS1/jquery.instagramFeed
+ *
+ */
 (function($){
 	var defaults = {
 		'username': '',
