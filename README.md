@@ -5,4 +5,4 @@ Instagram Feed without using the instagram API
 
 ## Instagram CORS issue is fixed with the last commit. 
 
-The way we do this is using the [https://cors-anywhere.herokuapp.com/](live demo) of [https://github.com/Rob--W/cors-anywhere](this project) 
+The way we do this is using the [live demo](https://cors-anywhere.herokuapp.com/) of [this project](https://github.com/Rob--W/cors-anywhere) 
