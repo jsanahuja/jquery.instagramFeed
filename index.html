@@ -284,16 +284,26 @@
 </div>
 <div>
 	<div class="section_title">
+		<h3>CORS</h3>
+		<h4>Instagram recently changed their CORS policy</h4>
+	</div>
+	<div class="instagram_feed info">
+		<p>This CORS change broke the entire functionality of this library. Fortunately we have been able to get it back to work using a proxy (a <a href="https://cors-anywhere.herokuapp.com/" target="_blank">live implementation</a> of the <a href="https://github.com/Rob--W/cors-anywhere" target="_blank">cors-anywhere project</a>). With that comes the possible need of <strong>setting up your own proxy</strong> for performance reasons. I am not going to explain how can you do that, there is a bunch of information in <a href="https://github.com/Rob--W/cors-anywhere/blob/master/README.md" target="blank">the project readme</a>. You can also use other implementations of this as long as you use them server side. Navigators will block any try of bypassing this in the frontend</p>
+	</div>
+</div>
+<div>
+	<div class="section_title">
 		<h3>Still not enough?</h3>
 		<h4 class="big"><a href="https://github.com/jsanahuja/jquery.instagramFeed">Send your request or just fork!</a></h4>
 	</div>
 </div>
 
-	<script type="text/javascript" src="jquery.instagramFeed.min.js"></script>
+	<script type="text/javascript" src="jquery.instagramFeed.js"></script>
 	<script type="text/javascript">
 		(function($){
 			$(window).on('load', function(){				
 				$.instagramFeed({
+					'cors_proxy': "https://cors-anywhere.herokuapp.com/https://www.instagram.com/",
 					'username': 'instagram',
 					'container': "#instagram-feed1",
 					'display_profile': true,

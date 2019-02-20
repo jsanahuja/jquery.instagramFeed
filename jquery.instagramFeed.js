@@ -10,6 +10,7 @@
  */
 (function($){
 	var defaults = {
+		'cors_proxy': "https://cors-anywhere.herokuapp.com/https://www.instagram.com/",
 		'username': '',
 		'container': '',
 		'display_profile': true,
@@ -37,7 +38,7 @@
 			return;
 		}
 
-		var url = "https://cors-anywhere.herokuapp.com/https://www.instagram.com/"+ options.username;
+		var url = options.cors_proxy + options.username;
 		
 		$.ajax({
 			url: url,
