@@ -296,9 +296,11 @@
 &lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;
 	(function($){
-		$.instagramFeed({
-			<strong>'cors_proxy': "https://cors-anywhere.herokuapp.com/https://www.instagram.com/",</strong>
-			...
+		$(window).on('load', function(){
+			$.instagramFeed({
+				<strong>'cors_proxy': "https://cors-anywhere.herokuapp.com/https://www.instagram.com/",</strong>
+				...
+			});
 		});
 	})(jQuery);
 &lt;/script&gt;
@@ -312,7 +314,7 @@
 	</div>
 </div>
 
-	<script type="text/javascript" src="jquery.instagramFeed.js"></script>
+	<script type="text/javascript" src="jquery.instagramFeed.min.js"></script>
 	<script type="text/javascript">
 		(function($){
 			$(window).on('load', function(){				
