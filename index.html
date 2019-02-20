@@ -33,6 +33,7 @@
 			h4.big{font-size:2em;}
 			h1{font-size:2.5em;margin-bottom:1em;}
 			a{color:#2955ff}
+			.m-t-1{margin-top:1em;}
 		</style>
 	</head>
 	<body>
@@ -288,7 +289,7 @@
 		<h4>Instagram recently changed their CORS policy</h4>
 	</div>
 	<div class="instagram_feed info">
-		<p>This CORS change broke the entire functionality of this library. Fortunately we have been able to get it back to work using a proxy (a <a href="https://cors-anywhere.herokuapp.com/" target="_blank">live implementation</a> of the <a href="https://github.com/Rob--W/cors-anywhere" target="_blank">cors-anywhere project</a>). With that comes the possible need of <strong>setting up your own proxy</strong> for performance reasons. I am not going to explain how can you do that, there is a bunch of information in <a href="https://github.com/Rob--W/cors-anywhere/blob/master/README.md" target="blank">the project readme</a>. You can also use other implementations of this as long as you use them server side. Navigators will block any try of bypassing this in the frontend</p>
+		<p>This CORS change broke the entire functionality of this library. Fortunately we have been able to get it back to work using a proxy (a <a href="https://cors-anywhere.herokuapp.com/" target="_blank">live implementation</a> of the <a href="https://github.com/Rob--W/cors-anywhere" target="_blank">cors-anywhere project</a>). With that comes the possible need of <strong>setting up your own proxy</strong> for performance reasons. I am not going to explain how can you do that, there is a bunch of information in <a href="https://github.com/Rob--W/cors-anywhere/blob/master/README.md" target="blank">the project readme</a>. You can also use other implementations of this as long as you use them server side. Navigators will block any try of bypassing this in the frontend.</p>
 	</div>
 	<div class="section_code">
 		<h4>Code:</h4>
@@ -305,6 +306,10 @@
 	})(jQuery);
 &lt;/script&gt;
 		</pre>
+	</div>
+	<div class="instagram_feed info m-t-1">
+		<p>The proxy you provide must only need the username to be added at the end, for example for https://www.mydomain.com/igproxy/<strong>username</strong> you would provide "https://www.mydomain.com/igproxy/"</p>
+		
 	</div>
 </div>
 <div>
