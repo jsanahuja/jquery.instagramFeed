@@ -290,6 +290,20 @@
 	<div class="instagram_feed info">
 		<p>This CORS change broke the entire functionality of this library. Fortunately we have been able to get it back to work using a proxy (a <a href="https://cors-anywhere.herokuapp.com/" target="_blank">live implementation</a> of the <a href="https://github.com/Rob--W/cors-anywhere" target="_blank">cors-anywhere project</a>). With that comes the possible need of <strong>setting up your own proxy</strong> for performance reasons. I am not going to explain how can you do that, there is a bunch of information in <a href="https://github.com/Rob--W/cors-anywhere/blob/master/README.md" target="blank">the project readme</a>. You can also use other implementations of this as long as you use them server side. Navigators will block any try of bypassing this in the frontend</p>
 	</div>
+	<div class="section_code">
+		<h4>Code:</h4>
+		<pre>
+&lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	(function($){
+		$.instagramFeed({
+			<strong>'cors_proxy': "https://cors-anywhere.herokuapp.com/https://www.instagram.com/",</strong>
+			...
+		});
+	})(jQuery);
+&lt;/script&gt;
+		</pre>
+	</div>
 </div>
 <div>
 	<div class="section_title">
