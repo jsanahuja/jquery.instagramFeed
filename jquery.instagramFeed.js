@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.1
+ * @version 1.2
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  *
@@ -10,7 +10,7 @@
  */
 (function($){
 	var defaults = {
-		'cors_proxy': "https://cors-anywhere.herokuapp.com/https://www.instagram.com/",
+		'host': "https://www.instagram.com/",
 		'username': '',
 		'container': '',
 		'display_profile': true,
@@ -25,26 +25,20 @@
 	};
 	$.instagramFeed = function(options){
 		options = $.fn.extend({}, defaults, options);
-		if(options.username == "" && options.tag == ""){
-			console.log("Instagram Feed: Error, no username or tag found.");
+		if(options.username == ""){
+			console.error("Instagram Feed: Error, no username found.");
 			return;
 		}	
 		if(!options.get_raw_json && options.container == ""){
-			console.log("Instagram Feed: Error, no container found.");
+			console.error("Instagram Feed: Error, no container found.");
 			return;
 		}
 		if(options.get_raw_json && options.callback == null){
-			console.log("Instagram Feed: Error, no callback defined to get the raw json");
+			console.error("Instagram Feed: Error, no callback defined to get the raw json");
 			return;
 		}
 
-		var url = options.cors_proxy + options.username;
-		
-		$.ajax({
-			url: url,
-			type: "GET",
-			beforeSend: function(xhr){xhr.setRequestHeader("x-requested-with", 'instagram.com');},
-			success: function(data){
+		$.get(options.host + options.username, function(data){
 				data = data.split("window._sharedData = ");
 				data = data[1].split("<\/script>");
 				data = data[0];
@@ -118,7 +112,7 @@
 				}
 				$(options.container).html(html);
 			}
-		});
+		);
 	};
 	
 })(jQuery);
