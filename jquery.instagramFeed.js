@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.2
+ * @version 1.1.0
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  *
@@ -16,6 +16,7 @@
 		'display_profile': true,
 		'display_biography': true,
 		'display_gallery': true,
+		'display_igtv': false,
 		'get_raw_json': false,
 		'callback': null,
 		'styling': true,
@@ -23,12 +24,13 @@
 		'items_per_row': 4,
 		'margin': 0.5
 	};
+
 	$.instagramFeed = function(options){
 		options = $.fn.extend({}, defaults, options);
 		if(options.username == ""){
 			console.error("Instagram Feed: Error, no username found.");
 			return;
-		}	
+		}
 		if(!options.get_raw_json && options.container == ""){
 			console.error("Instagram Feed: Error, no container found.");
 			return;
@@ -47,17 +49,20 @@
 				data = data.entry_data.ProfilePage[0].graphql.user;
 				
 				if(options.get_raw_json){
-					options.callback(JSON.stringify({
-						id: data.id,
-						username: data.username,
-						full_name: data.full_name,
-						is_private: data.is_private,
-						is_verified: data.is_verified,
-						biography: data.biography,
-						followed_by: data.edge_followed_by.count,
-						following: data.edge_follow.count,
-						'images': data.edge_owner_to_timeline_media.edges,
-					}));
+					options.callback(
+						JSON.stringify({
+							id: data.id,
+							username: data.username,
+							full_name: data.full_name,
+							is_private: data.is_private,
+							is_verified: data.is_verified,
+							biography: data.biography,
+							followed_by: data.edge_followed_by.count,
+							following: data.edge_follow.count,
+							images: data.edge_owner_to_timeline_media.edges,
+							igtv: data.edge_felix_video_timeline.edges
+						})
+					);
 					return;
 				}
 				
@@ -105,6 +110,23 @@
 							var url = "https://www.instagram.com/p/"+ imgs[i].node.shortcode;
 							html += "<a href='"+url+"' rel='noopener' target='_blank'>";
 							html += "	<img src='"+ imgs[i].node.thumbnail_src +"' alt='"+ options.username +" instagram image "+ i+"'"+styles.gallery_image+" />";
+							html += "</a>";
+						}
+						html += "</div>";
+					}
+				}
+				
+				if(options.display_igtv){
+					if(data.is_private){
+						html += "<p class='instagram_private'><strong>This profile is private</strong></p>";
+					}else{
+						var igtv = data.edge_felix_video_timeline.edges,
+							max = (igtv.length > options.items) ? options.items : igtv.length
+						html += "<div class='instagram_igtv'>";
+						for(var i = 0; i < max; i++){
+							var url = "https://www.instagram.com/p/"+ igtv[i].node.shortcode;
+							html += "<a href='"+url+"' rel='noopener' target='_blank'>";
+							html += "	<img src='"+ igtv[i].node.thumbnail_src +"' alt='"+ options.username +" instagram image "+ i+"'"+styles.gallery_image+" />";
 							html += "</a>";
 						}
 						html += "</div>";

@@ -136,6 +136,39 @@
 </div>
 <div>
 	<div class="section_title">
+		<h3>Want to display IGTV?</h3>
+		<h4>Enable <i>display_igtv</i>. <a href="https://help.instagram.com/381435875695118" target="_blank" rel="noopener">What is IGTV?</a></h4>
+	</div>
+	<div id="instagram-feed4" class="instagram_feed"></div>
+	<div class="section_code">
+		<h4>Code:</h4>
+		<pre>
+&lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	(function($){
+		$(window).on('load', function(){
+			$.instagramFeed({
+				'username': 'github',
+				'container': "#instagram-feed2",
+				'display_profile': false,
+				'display_biography': false,
+				'display_gallery': false,
+				<strong>'display_igtv': true,</strong>
+				'get_raw_json': false,
+				'callback': null,
+				'styling': true,
+				'items': 8,
+				'items_per_row': 4,
+				'margin': 1 
+			});
+		});
+	})(jQuery);
+&lt;/script&gt;
+		</pre>
+	</div>
+</div>
+<div>
+	<div class="section_title">
 		<h3>Don't like our styles at all?</h3>
 		<h4>Make your owns disabling <i>styling</i></h4>
 	</div>
@@ -257,7 +290,10 @@
 				"is_video": false
 			}
 		},
-		......
+		...
+	],
+	"igtv":[
+		... (Mostly same structure as image.)
 	]
 }
 		</pre>
@@ -333,6 +369,20 @@
 					'items': 12,
 					'items_per_row': 6,
 					'margin': 0.25
+				});
+				$.instagramFeed({
+					'username': 'fcbarcelona',
+					'container': "#instagram-feed4",
+					'display_profile': false,
+					'display_biography': false,
+					'display_gallery': false,
+					'display_igtv': true,
+					'get_raw_json': false,
+					'callback': null,
+					'styling': true,
+					'items': 8,
+					'items_per_row': 4,
+					'margin': 1
 				});
 			});
 		})(jQuery);
