@@ -148,7 +148,7 @@
 	&lt;p class=&quot;<strong>instagram_biography</strong>&quot;&gt;....&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;<strong>instagram_gallery</strong>&quot;&gt;
-	&lt;a href=&quot;https://www.instagram.com/p/Bh-P3IoDxyB&quot; target=&quot;_blank&quot;&gt;
+	&lt;a href=&quot;https://www.instagram.com/p/Bh-P3IoDxyB&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt;
 		&lt;img src=&quot;...&quot; alt=&quot;instagram instagram image 0&quot; /&gt;
 	&lt;/a&gt;
 	.
@@ -281,36 +281,6 @@
 	})(jQuery);
 &lt;/script&gt;
 		</pre>
-	</div>
-</div>
-<div>
-	<div class="section_title">
-		<h3>CORS</h3>
-		<h4>Instagram CORS policy could change again</h4>
-	</div>
-	<div class="instagram_feed info">
-		<p>Preventing a future Instagram's CORS policy changes we have left the functionality of using a proxy. The following example is how would we use an <a href="https://cors-anywhere.herokuapp.com/" target="_blank">implementation</a> of the <a href="https://github.com/Rob--W/cors-anywhere" target="_blank">cors-anywhere project</a>. With that would come the need of <strong>setting up your own proxy</strong> for performance reasons. I am not going to explain how can you do that, there is a bunch of information in <a href="https://github.com/Rob--W/cors-anywhere/blob/master/README.md" target="blank">the project readme</a>. You can also use other implementations of this as long as you use them server side. Browsers will block any try of bypassing this in the frontend, they care about CORS.</p>
-	</div>
-	<div class="section_code">
-		<h4>Code:</h4>
-		<pre>
-&lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-	(function($){
-		$(window).on('load', function(){
-			$.instagramFeed({
-				'host': "https://www.instagram.com/", <strong>// Default</strong>
-				//'host': "https://cors-anywhere.herokuapp.com/https://www.instagram.com/", <strong>// Cors Workaround</strong>
-				...
-			});
-		});
-	})(jQuery);
-&lt;/script&gt;
-		</pre>
-	</div>
-	<div class="instagram_feed info m-t-1">
-		<p>The proxy you provide must only need the username to be added at the end, for example for https://www.mydomain.com/igproxy/<strong>username</strong> you would provide "https://www.mydomain.com/igproxy/"</p>
-		
 	</div>
 </div>
 <div>
