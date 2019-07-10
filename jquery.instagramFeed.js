@@ -103,7 +103,7 @@
 						html += "<div class='instagram_gallery'>";
 						for(var i = 0; i < max; i++){
 							var url = "https://www.instagram.com/p/"+ imgs[i].node.shortcode;
-							html += "<a href='"+url+"' target='_blank'>";
+							html += "<a href='"+url+"' rel='noopener' target='_blank'>";
 							html += "	<img src='"+ imgs[i].node.thumbnail_src +"' alt='"+ options.username +" instagram image "+ i+"'"+styles.gallery_image+" />";
 							html += "</a>";
 						}
