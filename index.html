@@ -1,7 +1,7 @@
 <!--
  * jquery.instagramFeed
  *
- * @version 1.1.2
+ * @version 1.2
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  *
@@ -10,218 +10,459 @@
  *-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<script type="text/javascript" src="https://cdn.shurimages.com/js/libs/jquery.min.js"></script>
-		<style type="text/css">
-			*{margin:0;padding:0;}
-			body{font-family:monospace;padding:0;margin:0;}
-			pre{border-radius:6px;padding:0.2em 0.5em;box-sizing:border-box;overflow-x:auto;}
-			pre strong{font-weight:bold;color:#00abff;}
-			.section_title{padding:3em 0em;text-align:center;color:#FFF;background:#000;margin-bottom:1em;}
-			.section_title:first-child{padding:2em 0em;}
-			.section_title:last-child{margin-bottom:0;}
-			.section_title h3{font-size:2em;}
-			.section_title h4{font-size:1.2em;margin-top:0.5em;}
-			.section_code{padding: 1em 0em;background:#555;}
-			.section_code h4{width:100%;max-width:1200px;margin:0 auto;font-size:1.2em;color:#FFF;}
-			.section_code pre{width:100%;max-width:1200px;margin:0 auto;background:#777;color:#CCC;border:1px #555 solid;}
-			.info pre{background-color:#999;color:#EEE;}
-			.info pre strong{color:#00ffba;}
-			.instagram_feed{width:100%;max-width:1200px;margin:0 auto;overflow:hidden;}
-			.info{padding-bottom:2em;}
-			.info p{font-size: 1.2em;margin-bottom: 0.3em;}
-			h4.big{font-size:2em;}
-			h1{font-size:2.5em;margin-bottom:1em;}
-			a{color:#2955ff}
-			.m-t-1{margin-top:1em;}
-		</style>
-	</head>
-	<body>
-<div>
-	<div class="section_title">
-		<h1><a href="https://github.com/jsanahuja/jquery.instagramFeed">jquery.instagramFeed</a></h1>
-		<h3>Default feed styling</h3>
-		<h4>Don't like it? Keep scrolling</h4>
-	</div>
-	<div id="instagram-feed1" class="instagram_feed"></div>
-	<div class="section_code">
-		<h4>Code:</h4>
-		<pre>
-&lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-	(function($){
-		$(window).on('load', function(){
-			$.instagramFeed({
-				'username': 'instagram',
-				'container': "#instagram-feed1",
-				'display_profile': true,
-				'display_biography': true,
-				'display_gallery': true,
-				'get_raw_json': false,
-				'callback': null,
-				'styling': true,
-				'items': 8,
-				'items_per_row': 4,
-				'margin': 1 
-			});
-		});
-	})(jQuery);
+
+<head>
+
+    <link rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script 
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+        crossorigin="anonymous"></script>
+
+    <style>
+
+        .bg-primary-2 {
+            background-color: #3779B3;
+        }
+
+        .bg-secondary-2 {
+            background: #cbdbe8;
+        }
+
+        .text-underline {
+            text-decoration: underline;
+        }
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+        .text-italic {
+            font-style: italic;
+        }
+
+        .text-small {
+            font-size: 0.8em;
+        }
+
+        .flex-grow-1 {
+            flex-grow: 1;
+        }
+
+        #examples pre {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #777;
+            color: #CCC;
+            border: 1px #555 solid;
+            padding: .25rem!important;
+        }
+
+        #btn-top {
+            position: fixed;
+            z-index: 999;
+            bottom: 1em;
+            top: auto;
+            left: auto;
+            right: 1em;
+            margin-left: -1.9rem;
+            opacity: .66;
+            display: none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header id="header" class="bg-primary-2">
+        <div class="container py-4">
+            <div class="d-flex flex-wrap align-items-center pb-4">
+                <h1 class="text-white flex-grow-1 m-0"> Documentation jquery.instagramFeed </h1>
+
+                <a class="text-white text-underline d-flex align-items-center" target="_blank" rel="noopener"
+                    href="https://github.com/jsanahuja/jquery.instagramFeed">
+
+                    <span class="mr-2">Visit our repository</span>
+                    <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+                </a>
+            </div>
+
+            <ul class="list-inline menu-navigation">
+                <li class="list-inline-item"><a class="text-white" href="#options">Options</a></li>
+                <li class="list-inline-item"><a class="text-white" href="#examples">Examples</a></li>
+            </ul>
+
+        </div>    
+    </header>
+
+
+    <section id="options">
+        <div class="bg-secondary-2 py-3">
+            <div class="container">
+                <h3>Options</h3>
+            </div>
+        </div>
+
+        <div class="container py-3">
+
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th style="width: 40%">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">username</code>
+                            <span class="text-danger text-small text-italic">Required</span>
+                        </td>
+                        <td><em>String</em></td>
+                        <td><code>null</code></td>
+                        <td>Instagram username from where to retrieve the feed</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">container</code>
+                            <span class="text-danger text-small text-italic">Required / Optional</span>
+                        </td>
+                        <td><em>String</em></td>
+                        <td><code>null</code></td>
+                        <td>Selector where to place the feed. Required if <code>get_raw_json</code> is false</td>
+                    </tr>                
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">callback</code>
+                            <span class="text-danger text-small text-italic">Required / Optional</span>
+                        </td>
+                        <td><em>function</em></td>
+                        <td><code>null</code></td>
+                        <td>Function callback. Only applies if <code>get_raw_json</code></td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">get_raw_json</code>
+                            <span class="text-danger text-small text-italic"></span>
+                        </td>
+                        <td><em>Boolean</em></td>
+                        <td><code>false</code></td>
+                        <td>Enables getting raw json with a callback function</td>
+                    </tr>                        
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">display_profile</code>
+                        </td>
+                        <td><em>Boolean</em></td>
+                        <td><code>true</code></td>
+                        <td>Enables displaying the profile</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">display_biography</code>
+                        </td>
+                        <td><em>Boolean</em></td>
+                        <td><code>true</code></td>
+                        <td>Enables displaying the biography</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">display_gallery</code>
+                        </td>
+                        <td><em>Boolean</em></td>
+                        <td><code>true</code></td>
+                        <td>Enables displaying the gallery</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">styling</code>
+                        </td>
+                        <td><em>Boolean</em></td>
+                        <td><code>true</code></td>
+                        <td>Enables default styling</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">items</code>
+                        </td>
+                        <td><em>number [Int]</em></td>
+                        <td><code>8</code></td>
+                        <td>Num of items to display in gallery. Accepted values [0-12]</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">margin</code>
+                        </td>
+                        <td><em>number [Float]</em></td>
+                        <td><code>0.5</code></td>
+                        <td>Margin between items in gallery</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">image_size</code>
+                        </td>
+                        <td><em>number [Int]</em></td>
+                        <td><code>640</code></td>
+                        <td>Scale of items to build gallery. Accepted values [150, 240, 320, 480, 640]. Does not apply to videos previews.</td>
+                    </tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">host</code>
+                        </td>
+                        <td><em>String [url]</em></td>
+                        <td><code>https://www.instagram.com/</code></td>
+                        <td>URL where to fetch the data. Useful if instagram changes CORS policy</td>
+                    </tr>                                                 
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="examples">
+        <div class="bg-secondary-2 py-3">
+            <div class="container">
+                <h3>Examples</h3>
+                <ul class="pt-3 nav nav-tabs" id="tabExamples" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="example1-tab" 
+                           href="#example1" role="tab"
+                           aria-controls="Example 1" aria-selected="true"                           
+                           data-toggle="tab">Example 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="example2-tab" 
+                           href="#example2" role="tab"
+                           aria-controls="Example 2" aria-selected="false"                           
+                           data-toggle="tab">Example 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="example3-tab" 
+                           href="#example3" role="tab"
+                           aria-controls="Example 3" aria-selected="false"                           
+                           data-toggle="tab">Example 3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="example4-tab" 
+                           href="#example4" role="tab"
+                           aria-controls="Example 4" aria-selected="false"                           
+                           data-toggle="tab">Example 4</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="example5-tab" 
+                           href="#example5" role="tab"
+                           aria-controls="Example 5" aria-selected="false"                           
+                           data-toggle="tab">Example 5</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="example6-tab" 
+                           href="#example6" role="tab"
+                           aria-controls="Example 6" aria-selected="false"                           
+                           data-toggle="tab">Example 6</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container pt-3">
+            <div class="tab-content" id="tabContentExamples">
+
+                <div class="tab-pane fade show active" id="example1" 
+                    role="tabpanel" aria-labelledby="example1-tab">
+                    <h3>Example 1: Default feed styling</h3>
+                    <p>Don't like it? Check other examples!</p>
+                    <div id="instagram-feed1" class="instagram_feed"></div>
+                    <div class="section_code py-3">
+                        <div>Code:</div>
+                        <pre>
+&lt;script src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    (function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'username': 'instagram',
+                'container': "#instagram-feed1",
+                'display_profile': true,
+                'display_biography': true,
+                'display_gallery': true,
+                'get_raw_json': false,
+                'callback': null,
+                'styling': true,
+                'items': 8,
+                'items_per_row': 4,
+                'margin': 1 
+            });
+        });
+    })(jQuery);
 &lt;/script&gt;
-		</pre>
-	</div>
-</div>
-<div>
-	<div class="section_title">
-		<h3>Only want images?</h3>
-		<h4>Disable <i>display_profile</i> and <i>display_biography</i></h4>
-	</div>
-	<div id="instagram-feed2" class="instagram_feed"></div>
-	<div class="section_code">
-		<h4>Code:</h4>
-		<pre>
-&lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-	(function($){
-		$(window).on('load', function(){
-			$.instagramFeed({
-				'username': 'github',
-				'container': "#instagram-feed2",
-				<strong>'display_profile': false,
-				'display_biography': false,</strong>
-				'display_gallery': true,
-				'get_raw_json': false,
-				'callback': null,
-				'styling': true,
-				'items': 8,
-				'items_per_row': 4,
-				'margin': 1 
-			});
-		});
-	})(jQuery);
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="example2" 
+                    role="tabpanel" aria-labelledby="example2-tab">
+                    <h3>Example 2: Only want images?</h3>
+                    <p>Disable <i>display_profile</i> and <i>display_biography</i></p>
+                    <div id="instagram-feed2" class="instagram_feed"></div>
+                    <div class="section_code py-3">
+                        <div>Code:</div>
+                        <pre>
+&lt;script src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    (function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'username': 'github',
+                'container': "#instagram-feed2",
+                <strong>'display_profile': false,
+                'display_biography': false,</strong>
+                'display_gallery': true,
+                'get_raw_json': false,
+                'callback': null,
+                'styling': true,
+                'items': 8,
+                'items_per_row': 4,
+                'margin': 1 
+            });
+        });
+    })(jQuery);
 &lt;/script&gt;
-		</pre>
-	</div>
-</div>
-<div>
-	<div class="section_title">
-		<h3>Want to load more or change the display?</h3>
-		<h4>Change <i>items</i>, <i>items_per_row</i> and <i>margin</i></h4>
-	</div>
-	<div id="instagram-feed3" class="instagram_feed"></div>
-	<div class="section_code">
-		<h4>Code:</h4>
-		<pre>
-&lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-	(function($){
-		$(window).on('load', function(){
-			$.instagramFeed({
-				'username': 'zara',
-				'container': "#instagram-feed3",
-				'display_profile': false,
-				'display_biography': false,
-				'display_gallery': true,
-				'get_raw_json': false,
-				'callback': null,
-				'styling': true,
-				<strong>'items': 12,
-				'items_per_row': 6,
-				'margin': 0.25</strong>
-			});
-		});
-	})(jQuery);
+                        </pre>
+                    </div>                
+                </div>
+
+                <div class="tab-pane fade" id="example3" 
+                    role="tabpanel" aria-labelledby="example3-tab">
+                    <h3>Example 3: Want to load more or change the display?</h3>
+                    <p>Change <i>items</i>, <i>items_per_row</i> and <i>margin</i></p>
+                    <div id="instagram-feed3" class="instagram_feed"></div>
+                    <div class="section_code py-3">
+                        <div>Code:</div>
+                        <pre>
+&lt;script src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    (function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'username': 'zara',
+                'container': "#instagram-feed3",
+                'display_profile': false,
+                'display_biography': false,
+                'display_gallery': true,
+                'get_raw_json': false,
+                'callback': null,
+                'styling': true,
+                <strong>'items': 12,
+                'items_per_row': 6,
+                'margin': 0.25</strong>
+            });
+        });
+    })(jQuery);
 &lt;/script&gt;
-		</pre>
-	</div>
-</div>
-<div>
-	<div class="section_title">
-		<h3>Want to display IGTV?</h3>
-		<h4>Enable <i>display_igtv</i>. <a href="https://help.instagram.com/381435875695118" target="_blank" rel="noopener">What is IGTV?</a></h4>
-	</div>
-	<div id="instagram-feed4" class="instagram_feed"></div>
-	<div class="section_code">
-		<h4>Code:</h4>
-		<pre>
-&lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-	(function($){
-		$(window).on('load', function(){
-			$.instagramFeed({
-				'username': 'fcbarcelona',
-				'container': "#instagram-feed4",
-				'display_profile': false,
-				'display_biography': false,
-				'display_gallery': false,
-				<strong>'display_igtv': true,</strong>
-				'get_raw_json': false,
-				'callback': null,
-				'styling': true,
-				'items': 8,
-				'items_per_row': 4,
-				'margin': 1 
-			});
-		});
-	})(jQuery);
+                        </pre>
+                    </div>                
+                </div>
+
+                <div class="tab-pane fade" id="example4" 
+                    role="tabpanel" aria-labelledby="example4-tab">
+                    <h3>Example 4: Want to display IGTV?</h3>
+                    <p>Enable <i>display_igtv</i>. <a href="https://help.instagram.com/381435875695118" target="_blank" rel="noopener">What is IGTV?</a></p>
+                    <div id="instagram-feed4" class="instagram_feed"></div>
+                    <div class="section_code py-3">
+                        <div>Code:</div>
+                        <pre>
+&lt;script src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script &gt;
+    (function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'username': 'fcbarcelona',
+                'container': "#instagram-feed4",
+                'display_profile': false,
+                'display_biography': false,
+                'display_gallery': false,
+                <strong>'display_igtv': true,</strong>
+                'get_raw_json': false,
+                'callback': null,
+                'styling': true,
+                'items': 8,
+                'items_per_row': 4,
+                'margin': 1 
+            });
+        });
+    })(jQuery);
 &lt;/script&gt;
-		</pre>
-	</div>
-</div>
-<div>
-	<div class="section_title">
-		<h3>Don't like our styles at all?</h3>
-		<h4>Make your owns disabling <i>styling</i></h4>
-	</div>
-	<div class="instagram_feed info">
-		<p>This is the html you will have (Note we have enabled profile and biography in this case).</p>
-		<pre>
+                        </pre>
+                    </div>                
+                </div>
+
+                <div class="tab-pane fade" id="example5" 
+                    role="tabpanel" aria-labelledby="example5-tab">
+                    <h3>Example 5: Don't like our styles at all?</h3>
+                    <p>Make your owns disabling <i>styling</i></p>
+                    <div class="instagram_feed info">
+                        <p>This is the html you will have (Note we have enabled profile and biography in this case).</p>
+                        <pre>
 &lt;div class=&quot;<strong>instagram_profile</strong>&quot;&gt;
-	&lt;img class=&quot;<strong>instagram_profile_image</strong>&quot; src=&quot;...&quot; alt=&quot;Instagram profile pic&quot;&gt;
-	&lt;p class=&quot;<strong>instagram_username</strong>&quot;&gt;@Instagram (&lt;a href=&quot;...&quot;&gt;@instagram&lt;/a&gt;)&lt;/p&gt;
-	&lt;p class=&quot;<strong>instagram_biography</strong>&quot;&gt;....&lt;/p&gt;
+    &lt;img class=&quot;<strong>instagram_profile_image</strong>&quot; src=&quot;...&quot; alt=&quot;Instagram profile pic&quot;&gt;
+    &lt;p class=&quot;<strong>instagram_username</strong>&quot;&gt;@Instagram (&lt;a href=&quot;...&quot;&gt;@instagram&lt;/a&gt;)&lt;/p&gt;
+    &lt;p class=&quot;<strong>instagram_biography</strong>&quot;&gt;....&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;<strong>instagram_gallery</strong>&quot;&gt;
-	&lt;a href=&quot;https://www.instagram.com/p/Bh-P3IoDxyB&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt;
-		&lt;img src=&quot;...&quot; alt=&quot;instagram instagram image 0&quot; /&gt;
-	&lt;/a&gt;
-	.
-	.
-	.
+    &lt;a href=&quot;https://www.instagram.com/p/Bh-P3IoDxyB&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt;
+        &lt;img src=&quot;...&quot; alt=&quot;instagram instagram image 0&quot; /&gt;
+    &lt;/a&gt;
+    .
+    .
+    .
 &lt;/div&gt;
-		</pre>
-	</div>
-	<div class="section_code">
-		<h4>Code:</h4>
-		<pre>
-&lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-	(function($){
-		$(window).on('load', function(){
-			$.instagramFeed({
-				'username': 'instagram',
-				'container': "#instagram-feed3",
-				'display_profile': true,
-				'display_biography': true,
-				'display_gallery': true,
-				'get_raw_json': false,
-				'callback': null,
-				<strong>'styling': false,</strong>
-				'items': 12,
-			});
-		});
-	})(jQuery);
+                        </pre>
+                    </div>
+                    <div class="section_code py-3">
+                        <div>Code:</div>
+                        <pre>
+&lt;script src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    (function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'username': 'instagram',
+                'container': "#instagram-feed3",
+                'display_profile': true,
+                'display_biography': true,
+                'display_gallery': true,
+                'get_raw_json': false,
+                'callback': null,
+                <strong>'styling': false,</strong>
+                'items': 12,
+            });
+        });
+    })(jQuery);
 &lt;/script&gt;
-		</pre>
-	</div>
-</div>
-<div>
-	<div class="section_title">
-		<h3>Don't either like our template?</h3>
-		<h4>Set <i>get_raw_json</i> to <i>true</i> and define a <i>callback</i></h4>
-	</div>
-	<div class="instagram_feed info">
-		<p>This is the json format you will get.</p>
-		<pre id="jsonHere">
+                        </pre>
+                    </div>                
+                </div>
+
+                <div class="tab-pane fade" id="example6" 
+                    role="tabpanel" aria-labelledby="example6-tab">
+                    <h3>Example 6: Don't either like our template?</h3>
+                    <p>Set <i>get_raw_json</i> to <i>true</i> and define a <i>callback</i></p>
+                    <div class="instagram_feed info">
+                        <p>This is the json format you will get.</p>
+                        <pre id="jsonHere">
 {
     "id": "25025320",
     "username": "instagram",
@@ -232,160 +473,173 @@
     "followed_by": 234540102,
     "following": 181,
     "images": [
-		{
-			"node": {
-				"__typename": "GraphImage",
-				"id": "1764917863506713729",
-				"edge_media_to_caption": {
-					"edges": [{
-						"node": {
-							"text": "Photo by @safromabove\nAny gnomes down there? “This spot has always been a favorite of mine,” says drone photographer Bo Le (@safromabove). “It looks like a magic garden out of a fairy tale.” #WHP🌲"
-						}
-					}]
-				},
-				"shortcode": "Bh-P3IoDxyB",
-				"edge_media_to_comment": {
-					"count": 5535
-				},
-				"comments_disabled": false,
-				"taken_at_timestamp": 1524614626,
-				"dimensions": {
-					"height": 1350,
-					"width": 1080
-				},
-				"display_url": "https://instagram.fmad3-5.fna.fbcdn.net/vp/93a69c8cc3a402da587d1883b3893fc3/5B77310C/t51.2885-15/e35/30829708_127558864683780_2430851872064536576_n.jpg",
-				"edge_liked_by": {
-					"count": 821544
-				},
-				"edge_media_preview_like": {
-					"count": 821544
-				},
-				"gating_info": null,
-				"media_preview": "ACEqyFiJzjtVgW5/jIHGR/hSxDc/cDvg4+hqznOVIyMcH09/zqL6gVPKJHA6daik54HGKv8A3PlP59v/ANdQyL7cjrRcCjhvain59qKoRdtmIIIySeo4xjrzUrkt8w69wOMe1VCDCQM5FWUAdQewOSM1NtR67DPvAEH5hnjGac7BVyThvwNOZl4ABwahcBgSOMdM0ySvv+tFMy1FUO7JGYvyfwqWI7fmOPTB/wAKVgM/n/So/wCEVCdxsnDkDB5BPB9Pp7VUkVuppzGpJf6f0qkCVyr+NFNopiP/2Q==",
-				"owner": {
-					"id": "25025320"
-				},
-				"thumbnail_src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/e0be8fe70e152dca20e1729e62d51567/5B995BDE/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
-				"thumbnail_resources": [{
-					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/b029fbeb1afff1050d3683cfcfac5b03/5B677930/t51.2885-15/s150x150/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
-					"config_width": 150,
-					"config_height": 150
-				}, {
-					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/9ab93dc05d98fd8b022eed9c0dcab9aa/5B59B65B/t51.2885-15/s240x240/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
-					"config_width": 240,
-					"config_height": 240
-				}, {
-					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/739cb09783e5cd962538f660fe2dc1f0/5B9D8093/t51.2885-15/s320x320/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
-					"config_width": 320,
-					"config_height": 320
-				}, {
-					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/c6ef9d03df001593a2fe0ec9cb49989c/5B7DC679/t51.2885-15/s480x480/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
-					"config_width": 480,
-					"config_height": 480
-				}, {
-					"src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/e0be8fe70e152dca20e1729e62d51567/5B995BDE/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
-					"config_width": 640,
-					"config_height": 640
-				}],
-				"is_video": false
-			}
-		},
-		...
-	],
-	"igtv":[
-		... (Mostly same structure as image.)
-	]
+        {
+            "node": {
+                "__typename": "GraphImage",
+                "id": "1764917863506713729",
+                "edge_media_to_caption": {
+                    "edges": [{
+                        "node": {
+                            "text": "Photo by @safromabove\nAny gnomes down there? “This spot has always been a favorite of mine,” says drone photographer Bo Le (@safromabove). “It looks like a magic garden out of a fairy tale.” #WHP🌲"
+                        }
+                    }]
+                },
+                "shortcode": "Bh-P3IoDxyB",
+                "edge_media_to_comment": {
+                    "count": 5535
+                },
+                "comments_disabled": false,
+                "taken_at_timestamp": 1524614626,
+                "dimensions": {
+                    "height": 1350,
+                    "width": 1080
+                },
+                "display_url": "https://instagram.fmad3-5.fna.fbcdn.net/vp/93a69c8cc3a402da587d1883b3893fc3/5B77310C/t51.2885-15/e35/30829708_127558864683780_2430851872064536576_n.jpg",
+                "edge_liked_by": {
+                    "count": 821544
+                },
+                "edge_media_preview_like": {
+                    "count": 821544
+                },
+                "gating_info": null,
+                "media_preview": "ACEqyFiJzjtVgW5/jIHGR/hSxDc/cDvg4+hqznOVIyMcH09/zqL6gVPKJHA6daik54HGKv8A3PlP59v/ANdQyL7cjrRcCjhvain59qKoRdtmIIIySeo4xjrzUrkt8w69wOMe1VCDCQM5FWUAdQewOSM1NtR67DPvAEH5hnjGac7BVyThvwNOZl4ABwahcBgSOMdM0ySvv+tFMy1FUO7JGYvyfwqWI7fmOPTB/wAKVgM/n/So/wCEVCdxsnDkDB5BPB9Pp7VUkVuppzGpJf6f0qkCVyr+NFNopiP/2Q==",
+                "owner": {
+                    "id": "25025320"
+                },
+                "thumbnail_src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/e0be8fe70e152dca20e1729e62d51567/5B995BDE/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+                "thumbnail_resources": [{
+                    "src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/b029fbeb1afff1050d3683cfcfac5b03/5B677930/t51.2885-15/s150x150/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+                    "config_width": 150,
+                    "config_height": 150
+                }, {
+                    "src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/9ab93dc05d98fd8b022eed9c0dcab9aa/5B59B65B/t51.2885-15/s240x240/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+                    "config_width": 240,
+                    "config_height": 240
+                }, {
+                    "src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/739cb09783e5cd962538f660fe2dc1f0/5B9D8093/t51.2885-15/s320x320/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+                    "config_width": 320,
+                    "config_height": 320
+                }, {
+                    "src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/c6ef9d03df001593a2fe0ec9cb49989c/5B7DC679/t51.2885-15/s480x480/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+                    "config_width": 480,
+                    "config_height": 480
+                }, {
+                    "src": "https://instagram.fmad3-5.fna.fbcdn.net/vp/e0be8fe70e152dca20e1729e62d51567/5B995BDE/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/30829708_127558864683780_2430851872064536576_n.jpg",
+                    "config_width": 640,
+                    "config_height": 640
+                }],
+                "is_video": false
+            }
+        },
+        ......
+    ]
 }
-		</pre>
-	</div>
-	<div class="section_code">
-		<h4>Code:</h4>
-		<pre>
+                        </pre>
+                    </div>
+                    <div class="section_code py-3">
+                        <div>Code:</div>
+                        <pre> 
 &lt;script type="text/javascript" src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;
-	(function($){
-		$(window).on('load', function(){
-			function displayRaw(json){
-				$('#jsonHere').html(json);
-			}
-			$.instagramFeed({
-				'username': 'instagram',
-				<strong>'get_raw_json': true,
-				'callback': displayRaw</strong>
-			});
-		});
-	})(jQuery);
+    (function($){
+        $(window).on('load', function(){
+            function displayRaw(json){
+                $('#jsonHere').html(json);
+            }
+            $.instagramFeed({
+                'username': 'instagram',
+                <strong>'get_raw_json': true,
+                'callback': displayRaw</strong>
+            });
+        });
+    })(jQuery);
 &lt;/script&gt;
-		</pre>
-	</div>
-</div>
-<div>
-	<div class="section_title">
-		<h3>Still not enough?</h3>
-		<h4 class="big"><a href="https://github.com/jsanahuja/jquery.instagramFeed">Send your request or just fork!</a></h4>
-	</div>
-</div>
+                        </pre>
+                    </div>                
+                </div>
 
-	<script type="text/javascript" src="jquery.instagramFeed.min.js"></script>
-	<script type="text/javascript">
-		(function($){
-			$(window).on('load', function(){				
-				$.instagramFeed({
-					'username': 'instagram',
-					'container': "#instagram-feed1",
-					'display_profile': true,
-					'display_biography': true,
-					'display_gallery': true,
-					'get_raw_json': false,
-					'callback': null,
-					'styling': true,
-					'items': 8,
-					'items_per_row': 4,
-					'margin': 1
-				});	
-				
-				$.instagramFeed({
-					'username': 'github',
-					'container': "#instagram-feed2",
-					'display_profile': false,
-					'display_biography': false,
-					'display_gallery': true,
-					'get_raw_json': false,
-					'callback': null,
-					'styling': true,
-					'items': 8,
-					'items_per_row': 4,
-					'margin': 1
-				});
-				$.instagramFeed({
-					'username': 'zara',
-					'container': "#instagram-feed3",
-					'display_profile': false,
-					'display_biography': false,
-					'display_gallery': true,
-					'get_raw_json': false,
-					'callback': null,
-					'styling': true,
-					'items': 12,
-					'items_per_row': 6,
-					'margin': 0.25
-				});
-				$.instagramFeed({
-					'username': 'fcbarcelona',
-					'container': "#instagram-feed4",
-					'display_profile': false,
-					'display_biography': false,
-					'display_gallery': false,
-					'display_igtv': true,
-					'get_raw_json': false,
-					'callback': null,
-					'styling': true,
-					'items': 8,
-					'items_per_row': 4,
-					'margin': 1
-				});
-			});
-		})(jQuery);
-	</script>
-	</body>
+            </div>
+        </div>
+    </section>
+
+ 
+    <footer id="footer" class="bg-dark">
+        <div class="container text-center py-4">
+            <h3 class="text-white">Still not enough?</h3>
+
+            <a class="h3 mb-3 text-primary text-underline" target="_blank" rel="noopener"
+                href="https://github.com/jsanahuja/jquery.instagramFeed">
+                Send your request or just fork!
+            </a>
+
+        </div>
+        <a href="#header" id="btn-top" class="bg-primary px-2 py-1" title="Go top">
+            <span class="text-white" aria-hidden="true">^</span>
+        </a>
+    </footer>
+
+    <script src="jquery.instagramFeed.min.js"></script>
+    <script>
+        (function($){
+            $(window).on('load', function(){                
+                $.instagramFeed({
+                    'username': 'instagram',
+                    'container': "#instagram-feed1",
+                    'display_profile': true,
+                    'display_biography': true,
+                    'display_gallery': true,
+                    'get_raw_json': false,
+                    'callback': null,
+                    'styling': true,
+                    'items': 8,
+                    'items_per_row': 4,
+                    'margin': 1
+                }); 
+                
+                $.instagramFeed({
+                    'username': 'github',
+                    'container': "#instagram-feed2",
+                    'display_profile': false,
+                    'display_biography': false,
+                    'display_gallery': true,
+                    'get_raw_json': false,
+                    'callback': null,
+                    'styling': true,
+                    'items': 8,
+                    'items_per_row': 4,
+                    'margin': 1
+                });
+                $.instagramFeed({
+                    'username': 'zara',
+                    'container': "#instagram-feed3",
+                    'display_profile': false,
+                    'display_biography': false,
+                    'display_gallery': true,
+                    'get_raw_json': false,
+                    'callback': null,
+                    'styling': true,
+                    'items': 12,
+                    'items_per_row': 6,
+                    'margin': 0.25
+                });
+
+                // Show back to top button if distance from top > 0
+                $(window).scroll(function () { 
+                    var elementTop = $('#footer').offset().top + 40;
+                    var viewportTop = $(window).scrollTop() + $(window).height();
+             
+                    if (($(window).scrollTop() > 10) && (elementTop > viewportTop)) {
+                        $('#btn-top').addClass('d-block');
+                        $('#btn-top').removeClass('d-none');
+                    } else {
+                        $('#btn-top').addClass('d-none');
+                        $('#btn-top').removeClass('d-block');
+                    }
+                });
+
+            });
+        })(jQuery);
+    </script>
+
+</body>
 </html>
