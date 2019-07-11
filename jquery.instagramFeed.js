@@ -22,7 +22,8 @@
 		'styling': true,
 		'items': 8,
 		'items_per_row': 4,
-		'margin': 0.5
+		'margin': 0.5,
+        'image_size': 640
 	};
 
 	$.instagramFeed = function(options){
@@ -97,7 +98,27 @@
 				if(options.display_profile){
 					html += "</div>";
 				}
-				
+
+                var image_index = 4
+                if(options.image_size !== 640){
+                    switch (options.image_size) {
+                        case 150:
+                            image_index = 0;
+                            break;
+                        case 240:
+                            image_index = 1;
+                            break;
+                        case 320:
+                            image_index = 2;                        
+                            break;
+                        case 480:
+                            image_index = 3;
+                            break;
+                        default:
+                            console.warn("Wrong image size. Getting default value. Accepted values are [150, 240, 320, 480, 640]");
+                    }
+                }
+
 				if(options.display_gallery){
 					if(data.is_private){
 						html += "<p class='instagram_private'><strong>This profile is private</strong></p>";
@@ -107,9 +128,24 @@
 						
 						html += "<div class='instagram_gallery'>";
 						for(var i = 0; i < max; i++){
-							var url = "https://www.instagram.com/p/"+ imgs[i].node.shortcode;
-							html += "<a href='"+url+"' rel='noopener' target='_blank'>";
-							html += "	<img src='"+ imgs[i].node.thumbnail_src +"' alt='"+ options.username +" instagram image "+ i+"'"+styles.gallery_image+" />";
+							var url = "https://www.instagram.com/p/" + imgs[i].node.shortcode;
+							var image = imgs[i].node.thumbnail_resources[image_index].src
+							var type_resource = "image"
+
+							switch(imgs[i].node.__typename){
+								case "GraphSidecar":
+									type_resource = "sidecar"
+									break;
+								case "GraphVideo":
+									type_resource = "video";
+									image = imgs[i].node.thumbnail_src
+									break;
+								default:
+									type_resource = "image";
+							}
+
+							html += "<a href='" + url +"' class='instagram-" + type_resource + "' rel='noopener' target='_blank'>";
+							html += "   <img src='" + image + "' alt='" + options.username + " instagram image "+ i + "'" + styles.gallery_image +" />";
 							html += "</a>";
 						}
 						html += "</div>";
