@@ -20,5 +20,12 @@
     "type": "git",
     "url": "https://github.com/jsanahuja/jquery.instagramFeed.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-qunit": "^1.3.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
 }
