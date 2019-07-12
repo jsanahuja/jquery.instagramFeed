@@ -1,0 +1,36 @@
+{
+  "name": "jquery.instagramFeed",
+  "description": "Instagram Feed without access token. Not using the Instagram API",
+  "homepage": "https://github.com/jsanahuja/jquery.instagramFeed",
+  "version": "1.1.3",
+  "keywords": [
+    "instagram",
+    "feed",
+    "instagramfeed",
+    "without",
+    "access",
+    "token"
+  ],
+  "author": {
+    "name": "Javier Sanahuja",
+    "email": "bannss1@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Cristian Sanahuja",
+      "email": "csanahuja@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsanahuja/jquery.instagramFeed.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-qunit": "^1.3.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
