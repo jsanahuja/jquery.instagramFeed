@@ -117,7 +117,7 @@
                     try{
                         $.instagramFeed({
                             'username': 'travisci',
-                            'get_raw_json': true,
+                            'get_data': true,
                             'callback': function(json){
                                 $('#instagram-feed5').html(json);
                             }
@@ -126,6 +126,42 @@
                         failed = true;
                     }
                     assert.ok(failed === false, "Passed Test5!");
+                });
+              
+                QUnit.test("Test6", function( assert ) {
+                    var failed = false;
+                    try{
+                        $.instagramFeed({
+                            'tag': 'paradise',
+                            'container': "#instagram-feed4",
+                            'display_profile': true,
+                            'display_gallery': true,
+                            'items': 100,
+                            'items_per_row': 5,
+                            'margin': 0.5
+                        });
+                    }catch(e){
+                        failed = true;
+                    }
+                    assert.ok(failed === false, "Passed Test6!");
+                });
+                
+                QUnit.test("Test7", function( assert ) {
+                    var status = $.instagramFeed({});
+                    assert.ok(status === false, "Passed Test7 (no username nor tag)!");
+                });
+                QUnit.test("Test8", function( assert ) {
+                    var status = $.instagramFeed({
+                        "username": "travisci"
+                    });
+                    assert.ok(status === false, "Passed Test8! (no container)");
+                });
+                QUnit.test("Test9", function( assert ) {
+                    var status = $.instagramFeed({
+                        "username": "travisci",
+                        "get_data": true
+                    });
+                    assert.ok(status === false, "Passed Test9! (no callback)");
                 });
             });
         })(jQuery);
