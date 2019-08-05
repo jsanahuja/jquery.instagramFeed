@@ -19,6 +19,7 @@
         'display_biography': true,
         'display_gallery': true,
         'display_igtv': false,
+        'find_url_comment': true,
         'get_data': false,
         'callback': null,
         'styling': true,
@@ -113,9 +114,21 @@
                     
                     html +=         "<div class='instagram_gallery'>";
                     for(var i = 0; i < max; i++){
+						
                         var url = "https://www.instagram.com/p/" + imgs[i].node.shortcode,
                             image, type_resource;
 
+						if(options.find_url_comment){
+							var caption_text = imgs[i].node.edge_media_to_caption.edges[0].node.text;
+							if (caption_urls = caption_text.match(/(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/ig)) {
+								url = caption_urls[0];
+								if(!(/^((http|https|ftp):\/\/)/).test(url)) {
+									url = "//" + url;
+								}
+								
+							}
+						}
+						
                         switch(imgs[i].node.__typename){
                             case "GraphSidecar":
                                 type_resource = "sidecar"
