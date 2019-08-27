@@ -11,6 +11,7 @@ on:
       - dev
 
 jobs:
+  runs-on: ubuntu-latest
   build:
     strategy:
       matrix:
