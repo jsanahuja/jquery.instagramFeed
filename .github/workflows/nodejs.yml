@@ -11,8 +11,8 @@ on:
       - dev
 
 jobs:
-  runs-on: ubuntu-latest
-  build:
+  test:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x]
