@@ -22,6 +22,8 @@
     'get_data': false,
     'callback': null,
     'styling': true,
+    'random': false,
+    'total': 12,
     'items': 8,
     'items_per_row': 4,
     'margin': 0.5,
@@ -111,8 +113,15 @@
           var imgs = (data.edge_owner_to_timeline_media || data.edge_hashtag_to_media).edges;
           max = (imgs.length > options.items) ? options.items : imgs.length;
 
+          var rand_array = [];
+          while (rand_array.length < max) {
+            var r = Math.floor(Math.random() * options.total);
+            if (rand_array.indexOf(r) === -1) rand_array.push(r);
+          }
+
           html += "<div class='instagram_gallery'>";
-          for (var i = 0; i < max; i++) {
+          for (var j = 0; j < max; j++) {
+            i = (options.random) ? rand_array[j] : j;
             var url = "https://www.instagram.com/p/" + imgs[i].node.shortcode,
               image, type_resource;
 
