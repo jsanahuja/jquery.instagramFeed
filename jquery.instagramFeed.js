@@ -113,10 +113,21 @@
           var imgs = (data.edge_owner_to_timeline_media || data.edge_hashtag_to_media).edges;
           max = (imgs.length > options.items) ? options.items : imgs.length;
 
-          var rand_array = [];
-          while (rand_array.length < max) {
-            var r = Math.floor(Math.random() * options.total);
-            if (rand_array.indexOf(r) === -1) rand_array.push(r);
+          if (options.random) {
+            var total = (options.total < max) ? max : options.total;
+            for (var init_array = [], i = 0; i < total; ++i) init_array[i] = i;
+            function shuffle(array) {
+              var tmp, current, top = array.length;
+              if (top)
+                while (--top) {
+                  current = Math.floor(Math.random() * (top + 1));
+                  tmp = array[current];
+                  array[current] = array[top];
+                  array[top] = tmp;
+                }
+              return array;
+            }
+            rand_array = shuffle(init_array);
           }
 
           html += "<div class='instagram_gallery'>";
