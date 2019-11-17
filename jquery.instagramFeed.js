@@ -22,6 +22,7 @@
     'get_data': false,
     'callback': null,
     'styling': true,
+    'aspect_ratio': "1:1",
     'items': 8,
     'items_per_row': 4,
     'margin': 0.5,
@@ -32,7 +33,16 @@
     "240": 1,
     "320": 2,
     "480": 3,
-    "640": 4
+    "640": 4,
+    "full": "display_url"
+  }
+  var aspect_ratios = {
+    "1:1": 1,
+    "3:2": 0.6667,
+    "2:3": 1.5,
+    "4:3": 0.75,
+    "3:4": 1.3333,
+    "16:9": 0.5625
   }
 
   $.instagramFeed = function(opts) {
@@ -82,7 +92,9 @@
         styles.profile_name = " style='font-size:1.2em;'";
         styles.profile_biography = " style='font-size:1em;'";
         var width = (100 - options.margin * 2 * options.items_per_row) / options.items_per_row;
-        styles.gallery_image = " style='margin:" + options.margin + "% " + options.margin + "%;width:" + width + "%;float:left;'";
+        styles.igtv_image = " style='margin:" + options.margin + "% " + options.margin + "%;width:" + width + "%;float:left;'";
+        var aspect_ratio = typeof aspect_ratios[options.aspect_ratio] !== "undefined" ? aspect_ratios[options.aspect_ratio] : aspect_ratios["1:1"];
+        styles.gallery_image = "margin:" + options.margin + "% " + options.margin + "%;width:" + width + "%;padding-bottom: " + aspect_ratio * width + "%;float:left;background-size: cover;background-position: center center;";
       }
 
       var html = "";
@@ -119,7 +131,7 @@
             switch (imgs[i].node.__typename) {
               case "GraphSidecar":
                 type_resource = "sidecar"
-                image = imgs[i].node.thumbnail_resources[image_index].src;
+                image = (options.image_size == "full") ? imgs[i].node[image_index] : imgs[i].node.thumbnail_resources[image_index].src;
                 break;
               case "GraphVideo":
                 type_resource = "video";
@@ -127,11 +139,12 @@
                 break;
               default:
                 type_resource = "image";
-                image = imgs[i].node.thumbnail_resources[image_index].src;
+                image = (options.image_size == "full") ? imgs[i].node[image_index] : imgs[i].node.thumbnail_resources[image_index].src;
             }
 
             html += "    <a href='" + url + "' class='instagram-" + type_resource + "' rel='noopener' target='_blank'>";
-            html += "       <img src='" + image + "' alt='" + data.name + " instagram image " + i + "'" + styles.gallery_image + " />";
+            //html += "       <img src='" + image + "' alt='" + data.name + " instagram image " + i + "'" + styles.gallery_image + " />";
+            html += "       <div class='instagram_img_holder' alt='" + data.name + " instagram image " + i + "' style='background-image: url(" + image + ");" + styles.gallery_image + "'></div>";
             html += "    </a>";
           }
           html += "</div>";
@@ -145,7 +158,7 @@
           html += "<div class='instagram_igtv'>";
           for (var i = 0; i < max; i++) {
             html += "    <a href='https://www.instagram.com/p/" + igtv[i].node.shortcode + "' rel='noopener' target='_blank'>";
-            html += "        <img src='" + igtv[i].node.thumbnail_src + "' alt='" + options.username + " instagram image " + i + "'" + styles.gallery_image + " />";
+            html += "        <img src='" + igtv[i].node.thumbnail_src + "' alt='" + options.username + " instagram image " + i + "'" + styles.igtv_image + " />";
             html += "    </a>";
           }
           html += "</div>";
