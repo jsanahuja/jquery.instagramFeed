@@ -117,9 +117,12 @@
                         for (var init_array = [], i = 0; i < total; ++i) init_array[i] = i;
                         // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array top answer
                         function shuffle(a) {
-                            for (let i = a.length - 1; i > 0; i--) {
-                                const j = Math.floor(Math.random() * (i + 1));
-                                [a[i], a[j]] = [a[j], a[i]];
+                            var j, x, i;
+                            for (i = a.length - 1; i > 0; i--) {
+                                j = Math.floor(Math.random() * (i + 1));
+                                x = a[i];
+                                a[i] = a[j];
+                                a[j] = x;
                             }
                             return a;
                         }
