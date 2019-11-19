@@ -115,18 +115,16 @@
                     if (options.random) {
                         var total = (12 < max) ? max : 12;
                         for (var init_array = [], i = 0; i < total; ++i) init_array[i] = i;
-                        // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array top answer
-                        function shuffle(a) {
-                            var j, x, i;
-                            for (i = a.length - 1; i > 0; i--) {
-                                j = Math.floor(Math.random() * (i + 1));
-                                x = a[i];
-                                a[i] = a[j];
-                                a[j] = x;
+                        function select_images(input_array) {
+                            var index, output_array = [];
+                            for (var i = 0; i < max; i++) {
+                              index = Math.floor(Math.random() * (total - i));
+                              output_array.push(index)
+                              input_array.splice(index, 1)
                             }
-                            return a;
+                            return output_array;
                         }
-                        rand_array = shuffle(init_array);
+                        rand_array = select_images(init_array);
                     }
 
                     html += "<div class='instagram_gallery'>";
