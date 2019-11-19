@@ -1,7 +1,7 @@
 <!--
  * jquery.instagramFeed
  *
- * @version 1.2.0
+ * @version 1.2.1
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja@gmail.com>
@@ -9,29 +9,29 @@
  * https://github.com/jsanahuja/jquery.instagramFeed
  *
  *-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
-    <link rel="stylesheet" 
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
     <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
-    <script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-    <script 
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-        
+
     <script src="https://www.sowecms.com/demos/statics/prism.js"></script>
     <link rel="stylesheet" type="text/css" href="https://www.sowecms.com/demos/statics/prism.css">
 
@@ -114,7 +114,7 @@
                         <li class="pt-2">
                             <a class="text-white text-underline d-flex align-items-center" target="_blank" rel="noopener"
                                 href="https://www.paypal.me/JavierSL">
-                                
+
                                 <span class="mr-2 flex-grow-1">Support us</span>
                                 <svg class="octicon v-align-middle" fill="white" height="32" width="32" viewBox="0 0 32 32"><path d="M29.41 11.535c.215 1 .192 2.215-.07 3.645-1.035 5.285-4.399 7.925-10.09 7.925h-.785a1.17 1.17 0 0 0-.785.297 1.29 1.29 0 0 0-.43.758l-.07.34-.985 6.18-.035.265a1.27 1.27 0 0 1-.437.762c-.23.195-.496.293-.793.293h-4.485a.715.715 0 0 1-.59-.27.806.806 0 0 1-.16-.64c.11-.668.266-1.668.473-3 .21-1.332.367-2.332.477-3 .105-.668.265-1.664.48-2.992.215-1.328.375-2.325.48-2.993.063-.437.317-.66.77-.66h2.34c1.582.024 2.988-.101 4.215-.375 2.082-.465 3.789-1.32 5.125-2.57 1.215-1.133 2.136-2.594 2.765-4.395.285-.832.496-1.625.625-2.375.012-.07.028-.113.047-.132a.06.06 0 0 1 .063-.016.263.263 0 0 1 .105.063c.942.699 1.524 1.664 1.75 2.89zM26.34 6.5c0 1.273-.274 2.68-.82 4.215-.954 2.773-2.75 4.648-5.395 5.625-1.344.476-2.844.726-4.5.75 0 .012-.535.015-1.605.015l-1.61-.015c-1.191 0-1.89.57-2.105 1.715-.024.093-.532 3.25-1.52 9.465-.012.117-.082.175-.215.175H3.305a.833.833 0 0 1-.653-.293.831.831 0 0 1-.207-.687L6.59 1.195c.058-.343.223-.629.492-.855C7.348.113 7.656 0 8 0h10.68c.402 0 .984.078 1.738.23.758.157 1.422.348 1.992.575 1.274.488 2.246 1.218 2.922 2.195.672.977 1.008 2.145 1.008 3.5zm0 0" /></svg>
                             </a>
@@ -238,6 +238,14 @@
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">random</code>
+                        </td>
+                        <td><em>Boolean</em></td>
+                        <td><code>false</code></td>
+                        <td>Enables random shuffling of the 12 most recent images</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
                             <code class="text-bold flex-grow-1">items</code>
                         </td>
                         <td><em>number [Int]</em></td>
@@ -278,46 +286,52 @@
                 <h3>Examples</h3>
                 <ul class="pt-3 nav nav-tabs" id="tabExamples" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="example1-tab" 
+                        <a class="nav-link active" id="example1-tab"
                            href="#example1" role="tab"
-                           aria-controls="Example 1" aria-selected="true"                           
+                           aria-controls="Example 1" aria-selected="true"
                            data-toggle="tab">Example 1</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="example2-tab" 
+                        <a class="nav-link" id="example2-tab"
                            href="#example2" role="tab"
-                           aria-controls="Example 2" aria-selected="false"                           
+                           aria-controls="Example 2" aria-selected="false"
                            data-toggle="tab">Example 2</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="example3-tab" 
+                        <a class="nav-link" id="example3-tab"
                            href="#example3" role="tab"
-                           aria-controls="Example 3" aria-selected="false"                           
+                           aria-controls="Example 3" aria-selected="false"
                            data-toggle="tab">Example 3</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="example4-tab" 
+                        <a class="nav-link" id="example4-tab"
                            href="#example4" role="tab"
-                           aria-controls="Example 4" aria-selected="false"                           
+                           aria-controls="Example 4" aria-selected="false"
                            data-toggle="tab">Example 4</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="example5-tab" 
+                        <a class="nav-link" id="example5-tab"
                            href="#example5" role="tab"
-                           aria-controls="Example 5" aria-selected="false"                           
+                           aria-controls="Example 5" aria-selected="false"
                            data-toggle="tab">Example 5</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="example6-tab" 
+                        <a class="nav-link" id="example6-tab"
                            href="#example6" role="tab"
-                           aria-controls="Example 6" aria-selected="false"                           
+                           aria-controls="Example 6" aria-selected="false"
                            data-toggle="tab">Example 6</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="example7-tab" 
+                        <a class="nav-link" id="example7-tab"
                            href="#example7" role="tab"
-                           aria-controls="Example 7" aria-selected="false"                           
+                           aria-controls="Example 7" aria-selected="false"
                            data-toggle="tab">Example 7</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="example8-tab"
+                           href="#example8" role="tab"
+                           aria-controls="Example 8" aria-selected="false"
+                           data-toggle="tab">Example 8</a>
                     </li>
                 </ul>
             </div>
@@ -325,7 +339,7 @@
         <div class="container pt-3">
             <div class="tab-content" id="tabContentExamples">
 
-                <div class="tab-pane fade show active" id="example1" 
+                <div class="tab-pane fade show active" id="example1"
                     role="tabpanel" aria-labelledby="example1-tab">
                     <h3>Example 1: Default feed styling</h3>
                     <p>Don't like it? Check other examples!</p>
@@ -346,7 +360,7 @@
                 'styling': true,
                 'items': 8,
                 'items_per_row': 4,
-                'margin': 1 
+                'margin': 1
             });
         });
     })(jQuery);
@@ -355,7 +369,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="example2" 
+                <div class="tab-pane fade" id="example2"
                     role="tabpanel" aria-labelledby="example2-tab">
                     <h3>Example 2: Only want images?</h3>
                     <p>Disable <i>display_profile</i> and <i>display_biography</i></p>
@@ -376,16 +390,16 @@
                 'styling': true,
                 'items': 8,
                 'items_per_row': 4,
-                'margin': 1 
+                'margin': 1
             });
         });
     })(jQuery);
 &lt;/script&gt;
 </code></pre>
-                    </div>                
+                    </div>
                 </div>
 
-                <div class="tab-pane fade" id="example3" 
+                <div class="tab-pane fade" id="example3"
                     role="tabpanel" aria-labelledby="example3-tab">
                     <h3>Example 3: Want to load more or change the display?</h3>
                     <p>Change <i>items</i>, <i>items_per_row</i> and <i>margin</i></p>
@@ -412,10 +426,10 @@
     })(jQuery);
 &lt;/script&gt;
 </code></pre>
-                    </div>                
+                    </div>
                 </div>
 
-                <div class="tab-pane fade" id="example4" 
+                <div class="tab-pane fade" id="example4"
                     role="tabpanel" aria-labelledby="example4-tab">
                     <h3>Example 4: Want to fetch a TAG?</h3>
                     <p>Use <i>tag</i> instead of <i>username</i>.</p>
@@ -439,10 +453,10 @@
     })(jQuery);
 &lt;/script&gt;
 </code></pre>
-                    </div>                
+                    </div>
                 </div>
 
-                <div class="tab-pane fade" id="example5" 
+                <div class="tab-pane fade" id="example5"
                     role="tabpanel" aria-labelledby="example5-tab">
                     <h3>Example 5: Want to display IGTV?</h3>
                     <p>Enable <i>display_igtv</i>. <a href="https://help.instagram.com/381435875695118" target="_blank" rel="noopener">What is IGTV?</a></p>
@@ -464,18 +478,49 @@
                 'styling': true,
                 'items': 8,
                 'items_per_row': 4,
-                'margin': 1 
+                'margin': 1
             });
         });
     })(jQuery);
 &lt;/script&gt;
 </code></pre>
-                    </div>                
+                    </div>
                 </div>
 
-                <div class="tab-pane fade" id="example6" 
+                <div class="tab-pane fade" id="example6"
                     role="tabpanel" aria-labelledby="example6-tab">
-                    <h3>Example 6: Don't like our styles at all?</h3>
+                    <h3>Example 6: Want to have a random selection of images?</h3>
+                    <p>Enable <i>random</i> (refresh and come back to this tab to see different images)</p>
+                    <div id="instagram-feed6" class="instagram_feed"></div>
+                    <div class="section_code py-3">
+                        <div>Code:</div>
+<pre><code class="language-html">&lt;script src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script &gt;
+    (function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'username': 'instagram',
+                'container': "#instagram-feed6,
+                'display_profile': true,
+                'display_biography': true,
+                'display_gallery': true,
+                'callback': null,
+                'styling': true,
+                'items': 4,
+                'random': true,
+                'items_per_row': 4,
+                'margin': 1
+            });
+        });
+    })(jQuery);
+&lt;/script&gt;
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="example7"
+                    role="tabpanel" aria-labelledby="example7-tab">
+                    <h3>Example 7: Don't like our styles at all?</h3>
                     <p>Make your owns disabling <i>styling</i></p>
                     <div class="instagram_feed info">
                         <p>This is the html you will have (Note we have enabled profile and biography in this case).</p>
@@ -519,12 +564,12 @@
     })(jQuery);
 &lt;/script&gt;
 </code></pre>
-                    </div>                
+                    </div>
                 </div>
 
-                <div class="tab-pane fade" id="example7" 
-                    role="tabpanel" aria-labelledby="example7-tab">
-                    <h3>Example 7: Don't either like our template?</h3>
+                <div class="tab-pane fade" id="example8"
+                    role="tabpanel" aria-labelledby="example8-tab">
+                    <h3>Example 8: Don't either like our template?</h3>
                     <p>Set <i>get_data</i> to <i>true</i> and define a <i>callback</i></p>
                     <div class="instagram_feed info">
                         <p>This is the format you will get.</p>
@@ -548,14 +593,14 @@
     })(jQuery);
 &lt;/script&gt;
 </code></pre>
-                    </div>                
+                    </div>
                 </div>
 
             </div>
         </div>
     </section>
 
- 
+
     <footer id="footer" class="bg-dark">
         <div class="container text-center py-4">
             <h3 class="text-white">Still not enough?</h3>
@@ -586,8 +631,8 @@
                     'items': 8,
                     'items_per_row': 4,
                     'margin': 1
-                }); 
-                
+                });
+
                 $.instagramFeed({
                     'username': 'github',
                     'container': "#instagram-feed2",
@@ -634,8 +679,21 @@
                     'items_per_row': 4,
                     'margin': 1
                 });
-                
-                //example 7
+                $.instagramFeed({
+                    'username': 'instagram',
+                    'container': "#instagram-feed6",
+                    'display_profile': true,
+                    'display_biography': true,
+                    'display_gallery': true,
+                    'callback': null,
+                    'styling': true,
+                    'items': 4,
+                    'random': true,
+                    'items_per_row': 4,
+                    'margin': 1
+                });
+
+                //example 8
                 $.instagramFeed({
                     'username': 'instagram',
                     'get_data': true,
@@ -643,11 +701,11 @@
                         $('#jsonHere').html(JSON.stringify(data, null, 2));
                     }
                 });
-                
+
                 // Show back to top button if distance from top > 0
-                $(window).scroll(function(){ 
+                $(window).scroll(function(){
                     var viewportTop = $(window).scrollTop() + $(window).height();
-             
+
                     if($(window).scrollTop() > 10){
                         $('#btn-top').addClass('d-block');
                         $('#btn-top').removeClass('d-none');

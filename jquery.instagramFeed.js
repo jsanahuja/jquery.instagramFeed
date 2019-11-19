@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.2.0
+ * @version 1.2.1
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja@gmail.com>
@@ -23,7 +23,6 @@
         'callback': null,
         'styling': true,
         'random': false,
-        'total': 12,
         'items': 8,
         'items_per_row': 4,
         'margin': 0.5,
@@ -114,19 +113,15 @@
                     max = (imgs.length > options.items) ? options.items : imgs.length;
 
                     if (options.random) {
-                        var total = (options.total < max) ? max : options.total;
+                        var total = (12 < max) ? max : 12;
                         for (var init_array = [], i = 0; i < total; ++i) init_array[i] = i;
-
-                        function shuffle(array) {
-                            var tmp, current, top = array.length;
-                            if (top)
-                                while (--top) {
-                                    current = Math.floor(Math.random() * (top + 1));
-                                    tmp = array[current];
-                                    array[current] = array[top];
-                                    array[top] = tmp;
-                                }
-                            return array;
+                        // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array top answer
+                        function shuffle(a) {
+                            for (let i = a.length - 1; i > 0; i--) {
+                                const j = Math.floor(Math.random() * (i + 1));
+                                [a[i], a[j]] = [a[j], a[i]];
+                            }
+                            return a;
                         }
                         rand_array = shuffle(init_array);
                     }
