@@ -119,7 +119,7 @@
                             var index, output_array = [];
                             for (var i = 0; i < max; i++) {
                               index = Math.floor(Math.random() * (total - i));
-                              output_array.push(index)
+                              output_array.push(input_array[index])
                               input_array.splice(index, 1)
                             }
                             return output_array;
