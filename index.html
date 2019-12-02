@@ -225,7 +225,7 @@
                             <code class="text-bold flex-grow-1">display_igtv</code>
                         </td>
                         <td><em>Boolean</em></td>
-                        <td><code>true</code></td>
+                        <td><code>false</code></td>
                         <td>Enables displaying the IGTV feed if available. Only for users</td>
                     </tr>
                     <tr>
@@ -234,7 +234,7 @@
                         </td>
                         <td><em>Boolean</em></td>
                         <td><code>true</code></td>
-                        <td>Enables default styling</td>
+                        <td>Enables default inline css styles</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -242,7 +242,15 @@
                         </td>
                         <td><em>number [Int]</em></td>
                         <td><code>8</code></td>
-                        <td>Num of items to display in gallery. Accepted values [0-12]</td>
+                        <td>Number of items to display. Up to 12 for users, up to 72 for tags</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">items_per_row</code>
+                        </td>
+                        <td><em>number [Int]</em></td>
+                        <td><code>4</code></td>
+                        <td>Number of items that will be displayed for each row</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -250,7 +258,7 @@
                         </td>
                         <td><em>number [Float]</em></td>
                         <td><code>0.5</code></td>
-                        <td>Margin between items in gallery</td>
+                        <td>Margin (percentage) between items in gallery/igtv</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -258,7 +266,7 @@
                         </td>
                         <td><em>number [Int]</em></td>
                         <td><code>640</code></td>
-                        <td>Scale of items to build gallery. Accepted values [150, 240, 320, 480, 640]. Does not apply to videos previews.</td>
+                        <td>Scale of items to build gallery. Accepted values [150, 240, 320, 480, 640]. Does not apply to video previews.</td>
                     </tr>
                         <td class="d-flex flex-wrap">
                             <code class="text-bold flex-grow-1">host</code>
