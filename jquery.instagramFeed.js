@@ -89,7 +89,7 @@
             //Displaying profile
             if(options.display_profile){
                 html +=     "<div class='instagram_profile'" +styles.profile_container +">";
-                html +=     "    <img class='instagram_profile_image' src='"+ data.profile_pic_url +"' alt='"+ data.name +" profile pic'"+ styles.profile_image +" />";
+                html +=     "    <img class='instagram_profile_image' src='"+ data.profile_pic_url +"' alt='"+ data.username +" profile pic'"+ styles.profile_image +" />";
                 if(is_tag)
                     html += "    <p class='instagram_tag'"+ styles.profile_name +"><a href='https://www.instagram.com/explore/tags/"+ options.tag +"' rel='noopener' target='_blank'>#"+ options.tag +"</a></p>";
                 else
@@ -131,7 +131,7 @@
                         }
 
                         html +=     "    <a href='" + url +"' class='instagram-" + type_resource + "' rel='noopener' target='_blank'>";
-                        html +=     "       <img src='" + image + "' alt='" + data.name + " instagram image "+ i + "'" + styles.gallery_image +" />";
+                        html +=     "       <img src='" + image + "' alt='" + data.username + " instagram image "+ i + "'" + styles.gallery_image +" />";
                         html +=     "    </a>";
                     }
                     html +=         "</div>";
