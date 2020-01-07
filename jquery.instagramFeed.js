@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.2.0
+ * @version 1.2.1
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja@gmail.com>
@@ -89,7 +89,7 @@
             //Displaying profile
             if(options.display_profile){
                 html +=     "<div class='instagram_profile'" +styles.profile_container +">";
-                html +=     "    <img class='instagram_profile_image' src='"+ data.profile_pic_url +"' alt='"+ data.username +" profile pic'"+ styles.profile_image +" />";
+                html +=     "    <img class='instagram_profile_image' src='"+ data.profile_pic_url +"' alt='"+ (is_tag ? data.name + " tag pic" : data.username + " profile pic") +"'"+ styles.profile_image +" />";
                 if(is_tag)
                     html += "    <p class='instagram_tag'"+ styles.profile_name +"><a href='https://www.instagram.com/explore/tags/"+ options.tag +"' rel='noopener' target='_blank'>#"+ options.tag +"</a></p>";
                 else
@@ -114,7 +114,7 @@
                     html +=         "<div class='instagram_gallery'>";
                     for(var i = 0; i < max; i++){
                         var url = "https://www.instagram.com/p/" + imgs[i].node.shortcode,
-                            image, type_resource;
+                            image, type_resource, caption;
 
                         switch(imgs[i].node.__typename){
                             case "GraphSidecar":
@@ -129,9 +129,17 @@
                                 type_resource = "image";
                                 image = imgs[i].node.thumbnail_resources[image_index].src;
                         }
+						
+						if(typeof imgs[i].node.edge_media_to_caption.edges[0] !== "undefined"){
+							caption = imgs[i].node.edge_media_to_caption.edges[0].node.text;
+						}else if(typeof imgs[i].node.accessibility_caption !== "undefined"){
+							caption = imgs[i].node.accessibility_caption;
+						}else{
+							caption = (is_tag ? data.name : data.username) + " image " + i;
+						}
 
                         html +=     "    <a href='" + url +"' class='instagram-" + type_resource + "' rel='noopener' target='_blank'>";
-                        html +=     "       <img src='" + image + "' alt='" + data.username + " instagram image "+ i + "'" + styles.gallery_image +" />";
+                        html +=     "       <img src='" + image + "' alt='" + caption + "'" + styles.gallery_image +" />";
                         html +=     "    </a>";
                     }
                     html +=         "</div>";
