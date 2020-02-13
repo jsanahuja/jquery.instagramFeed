@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.2.1
+ * @version 1.2.2
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja@gmail.com>
@@ -33,6 +33,21 @@
         "320": 2,
         "480": 3,
         "640": 4
+    };
+    var escape_map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '/': '&#x2F;',
+        '`': '&#x60;',
+        '=': '&#x3D;'
+    };
+    function escape_string(str){
+        return str.replace(/[&<>"'`=\/]/g, function (char) {
+            return escape_map[char];
+        });
     }
 
     $.instagramFeed = function(opts){
@@ -139,7 +154,7 @@
                         }
 
                         html += "<a href='" + url +"' class='instagram-" + type_resource + "' rel='noopener' target='_blank'>";
-                        html += "<img src='" + image + "' alt='" + caption + "'" + styles.gallery_image +" />";
+                        html += "<img src='" + image + "' alt='" + escape_string(caption) + "'" + styles.gallery_image +" />";
                         html += "</a>";
                     }
                     html += "</div>";

@@ -26,5 +26,5 @@ module.exports = function(grunt) {
     grunt.registerTask('test', 'qunit');
 
     grunt.loadNpmTasks('grunt-node-minify');
-    grunt.registerTask('dist', 'node-minify');
+    grunt.registerTask('build', 'node-minify');
 };
