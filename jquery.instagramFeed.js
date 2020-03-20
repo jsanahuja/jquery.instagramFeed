@@ -174,7 +174,52 @@
                     html += "</div>";
                 }
             }
-            $(options.container).html(html);
+            
+            if(!options.multiple_containers){
+                $(options.container).html(html);
+            }else{
+                var containers = options.container.split(",");
+                if(typeof data.is_private !== "undefined" && data.is_private === true){
+                    html += "<p class='instagram_private'><strong>This profile is private</strong></p>";
+                    $(options.container).html(html);
+                }else{
+                    var imgs = (data.edge_owner_to_timeline_media || data.edge_hashtag_to_media).edges;
+                    var max = (imgs.length > options.items) ? options.items : imgs.length;
+                    
+                    for(var i = 0; i < max; i++){
+                        var url = "https://www.instagram.com/p/" + imgs[i].node.shortcode,
+                            image, type_resource, caption;
+
+                        switch(imgs[i].node.__typename){
+                            case "GraphSidecar":
+                                type_resource = "sidecar"
+                                image = imgs[i].node.thumbnail_resources[image_index].src;
+                                break;
+                            case "GraphVideo":
+                                type_resource = "video";
+                                image = imgs[i].node.thumbnail_src
+                                break;
+                            default:
+                                type_resource = "image";
+                                image = imgs[i].node.thumbnail_resources[image_index].src;
+                        }
+                        
+                        if(typeof imgs[i].node.edge_media_to_caption.edges[0] !== "undefined"){
+                            caption = imgs[i].node.edge_media_to_caption.edges[0].node.text;
+                        }else if(typeof imgs[i].node.accessibility_caption !== "undefined"){
+                            caption = imgs[i].node.accessibility_caption;
+                        }else{
+                            caption = (is_tag ? data.name : data.username) + " image " + i;
+                        }
+                    
+                        html = "<a href='" + url +"' class='instagram-" + type_resource + "' rel='noopener' target='_blank'>" +
+                        "<img src='" + image + "' alt='" + escape_string(caption) + "'" + styles.gallery_image +" />" +
+                        "</a>";
+                        $(containers[i]).html(html);
+                    }
+                }
+            }
+
         }).fail(function(e){
             console.error("Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: ", e.status);
         })
