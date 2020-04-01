@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.2.2
+ * @version 1.2.3
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja@gmail.com>
@@ -145,9 +145,17 @@
                                 image = imgs[i].node.thumbnail_resources[image_index].src;
                         }
                         
-                        if(typeof imgs[i].node.edge_media_to_caption.edges[0] !== "undefined"){
+                        if(
+                            typeof imgs[i].node.edge_media_to_caption.edges[0] !== "undefined" && 
+                            typeof imgs[i].node.edge_media_to_caption.edges[0].node !== "undefined" && 
+                            typeof imgs[i].node.edge_media_to_caption.edges[0].node.text !== "undefined" && 
+                            imgs[i].node.edge_media_to_caption.edges[0].node.text !== null
+                        ){
                             caption = imgs[i].node.edge_media_to_caption.edges[0].node.text;
-                        }else if(typeof imgs[i].node.accessibility_caption !== "undefined"){
+                        }else if(
+                            typeof imgs[i].node.accessibility_caption !== "undefined" && 
+                            imgs[i].node.accessibility_caption !== null
+                        ){
                             caption = imgs[i].node.accessibility_caption;
                         }else{
                             caption = (is_tag ? data.name : data.username) + " image " + i;
