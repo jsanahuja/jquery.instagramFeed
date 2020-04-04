@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.2.3
+ * @version 1.2.4
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja@gmail.com>
@@ -76,6 +76,10 @@
             data = data.split("window._sharedData = ")[1].split("<\/script>")[0];
             data = JSON.parse(data.substr(0, data.length - 1));
             data = data.entry_data.ProfilePage || data.entry_data.TagPage;
+            if(typeof data === "undefined"){
+                console.error("Instagram Feed: It looks like YOUR network has been temporary banned because of too many requests. See https://github.com/jsanahuja/jquery.instagramFeed/issues/25");
+                return;
+            }
             data = data[0].graphql.user || data[0].graphql.hashtag;
             
             if(options.get_data){
@@ -185,7 +189,8 @@
             $(options.container).html(html);
         }).fail(function(e){
             console.error("Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: ", e.status);
-        })
+        });
+
         return true;
     };
     
