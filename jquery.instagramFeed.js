@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.2.4
+ * @version 1.2.5
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja@gmail.com>
@@ -70,7 +70,7 @@
         }
 
         var is_tag = options.username == "",
-            url = is_tag ? options.host + "explore/tags/"+ options.tag : options.host + options.username;
+            url = is_tag ? options.host + "explore/tags/"+ options.tag + "/" : options.host + options.username + "/";
 
         $.get(url, function(data){
             data = data.split("window._sharedData = ")[1].split("<\/script>")[0];
