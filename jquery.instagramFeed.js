@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.2.5
+ * @version 1.2.6
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja@gmail.com>
@@ -73,7 +73,12 @@
             url = is_tag ? options.host + "explore/tags/"+ options.tag + "/" : options.host + options.username + "/";
 
         $.get(url, function(data){
-            data = data.split("window._sharedData = ")[1].split("<\/script>")[0];
+            try{
+                data = data.split("window._sharedData = ")[1].split("<\/script>")[0];
+            }catch(e){
+                console.error("Instagram Feed: It looks like the profile you are trying to fetch is age restricted. See https://github.com/jsanahuja/InstagramFeed/issues/26");
+                return;
+            }
             data = JSON.parse(data.substr(0, data.length - 1));
             data = data.entry_data.ProfilePage || data.entry_data.TagPage;
             if(typeof data === "undefined"){
