@@ -1,7 +1,13 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        'node-minify': {
-            gcc: {
+        babel: {
+            options: {
+                sourceMap: false,
+                comments: false,
+                sourceType: "unambiguous",
+                presets: ['@babel/preset-env', 'minify']
+            },
+            dist: {
                 files: {
                     'jquery.instagramFeed.min.js': ['jquery.instagramFeed.js']
                 }
@@ -25,6 +31,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.registerTask('test', 'qunit');
 
-    grunt.loadNpmTasks('grunt-node-minify');
-    grunt.registerTask('build', 'node-minify');
+    grunt.loadNpmTasks('grunt-babel');
+    grunt.registerTask('build', ['babel']);
 };
