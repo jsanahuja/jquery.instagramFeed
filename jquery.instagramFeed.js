@@ -192,6 +192,11 @@
                 }
             }
             $(options.container).html(html);
+            
+            if(!options.get_data && options.callback != null){
+                options.callback(data);
+            }   
+            
         }).fail(function(e){
             console.error("Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: ", e.status);
         });
