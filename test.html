@@ -117,7 +117,6 @@
                     try{
                         $.instagramFeed({
                             'username': 'travisci',
-                            'get_data': true,
                             'callback': function(json){
                                 $('#instagram-feed5').html(json);
                             }
@@ -154,14 +153,7 @@
                     var status = $.instagramFeed({
                         "username": "travisci"
                     });
-                    assert.ok(status === false, "Passed Test8! (no container)");
-                });
-                QUnit.test("Test9", function( assert ) {
-                    var status = $.instagramFeed({
-                        "username": "travisci",
-                        "get_data": true
-                    });
-                    assert.ok(status === false, "Passed Test9! (no callback)");
+                    assert.ok(status === false, "Passed Test8! (no container nor callback)");
                 });
             });
         })(jQuery);
