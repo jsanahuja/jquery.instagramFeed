@@ -176,7 +176,7 @@
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Selector where to place the feed. Required if <code>get_data</code> is false</td>
+                        <td>Selector where to place the feed. Do not define it if you going to process raw data yourself in a callback.</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -185,16 +185,7 @@
                         </td>
                         <td><em>function</em></td>
                         <td><code>null</code></td>
-                        <td>Function callback. Only applies if <code>get_data</code> is enabled</td>
-                    </tr>
-                    <tr>
-                        <td class="d-flex flex-wrap">
-                            <code class="text-bold flex-grow-1">get_data</code>
-                            <span class="text-danger text-small text-italic"></span>
-                        </td>
-                        <td><em>Boolean</em></td>
-                        <td><code>false</code></td>
-                        <td>Enables getting raw data with the <code>callback</code> function</td>
+                        <td>Function callback. Use to get raw data or do some post processing</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -533,7 +524,7 @@
                 <div class="tab-pane fade" id="example7" 
                     role="tabpanel" aria-labelledby="example7-tab">
                     <h3>Example 7: Don't either like our template?</h3>
-                    <p>Set <i>get_data</i> to <i>true</i> and define a <i>callback</i></p>
+                    <p>Define a <i>callback</i> and do not define a <i>container</i></p>
                     <div class="instagram_feed info">
                         <p>This is the format you will get.</p>
 <pre id="jsonHere"><code class="language-json">
@@ -547,7 +538,6 @@
         $(window).on('load', function(){
             $.instagramFeed({
                 'username': 'instagram',
-                <strong>'get_data': true,
                 'callback': function(data){
                     $('#jsonHere').html(JSON.stringify(data, null, 2));
                 }</strong>
@@ -646,7 +636,6 @@
                 //example 7
                 $.instagramFeed({
                     'username': 'instagram',
-                    'get_data': true,
                     'callback': function(data){
                         $('#jsonHere').html(JSON.stringify(data, null, 2));
                     }
