@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.3.0
+ * @version 1.3.1
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja10@gmail.com>
@@ -24,7 +24,9 @@
         'items': 8,
         'items_per_row': 4,
         'margin': 0.5,
-        'image_size': 640
+        'image_size': 640,
+        'lazy_load': false
+
     };
     var image_sizes = {
         "150": 0,
@@ -106,7 +108,7 @@
                 //Displaying profile
                 if (options.display_profile) {
                     html += "<div class='instagram_profile'" + styles.profile_container + ">";
-                    html += "<img class='instagram_profile_image' src='" + data.profile_pic_url + "' alt='" + (is_tag ? data.name + " tag pic" : data.username + " profile pic") + "'" + styles.profile_image + " />";
+                    html += "<img class='instagram_profile_image' src='" + data.profile_pic_url  + "' alt='"+ (is_tag ? data.name + " tag pic" : data.username + " profile pic") + "'" + styles.profile_image + (options.lazy_load ? " loading='lazy'" : '') + " />";
                     if (is_tag)
                         html += "<p class='instagram_tag'" + styles.profile_name + "><a href='https://www.instagram.com/explore/tags/" + options.tag + "' rel='noopener' target='_blank'>#" + options.tag + "</a></p>";
                     else
@@ -164,7 +166,7 @@
                             }
 
                             html += "<a href='" + url + "' class='instagram-" + type_resource + "' rel='noopener' target='_blank'>";
-                            html += "<img src='" + image + "' alt='" + escape_string(caption) + "'" + styles.gallery_image + " />";
+                            html += "<img" + (options.lazy_load ? " loading='lazy'" : '')  + " src='" + image + "' alt='" + escape_string(caption) + "'" + styles.gallery_image +" />";
                             html += "</a>";
                         }
                         html += "</div>";
@@ -178,7 +180,7 @@
                         html += "<div class='instagram_igtv'>";
                         for (var i = 0; i < max; i++) {
                             html += "<a href='https://www.instagram.com/p/" + igtv[i].node.shortcode + "' rel='noopener' target='_blank'>";
-                            html += "<img src='" + igtv[i].node.thumbnail_src + "' alt='" + options.username + " instagram image " + i + "'" + styles.gallery_image + " />";
+                            html += "<img"+ (options.lazy_load ? " loading='lazy'" : '') + " src='"+ igtv[i].node.thumbnail_src +"' alt='"+ options.username +" instagram image "+ i+"'"+styles.gallery_image+" />";
                             html += "</a>";
                         }
                         html += "</div>";
