@@ -1,18 +1,9 @@
-<!--
- * jquery.instagramFeed
- *
- * @version 1.3.1
- *
- * @author Javier Sanahuja Liebana <bannss1@gmail.com>
- * @contributor csanahuja <csanahuja10@gmail.com>
- *
- * https://github.com/jsanahuja/jquery.instagramFeed
- *
- *-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+    <meta charset="utf-8">
+    <title>jquery.instagramFeed</title>
 
     <link rel="stylesheet" 
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
@@ -183,7 +174,7 @@
                             <code class="text-bold flex-grow-1">callback</code>
                             <span class="text-danger text-small text-italic">Required / Optional</span>
                         </td>
-                        <td><em>function</em></td>
+                        <td><em>function(data)</em></td>
                         <td><code>null</code></td>
                         <td>Function callback. Use to get raw data or do some post processing</td>
                     </tr>
@@ -267,12 +258,27 @@
                         <td><code>640</code></td>
                         <td>Scale of items to build gallery. Accepted values [150, 240, 320, 480, 640]. Does not apply to video previews.</td>
                     </tr>
+                    <tr>
                         <td class="d-flex flex-wrap">
                             <code class="text-bold flex-grow-1">host</code>
                         </td>
                         <td><em>String [url]</em></td>
                         <td><code>https://www.instagram.com/</code></td>
                         <td>URL where to fetch the data. Useful if instagram changes CORS policy</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">on_error</code>
+                        </td>
+                        <td><em>function(error_description, error_code)</em></td>
+                        <td><code>console.error</code></td>
+                        <td><p class="mb-0">Function that will be triggered when an error ocurs. Error codes:</p>
+                            <p class="mb-0"><span class="text-danger text-small text-italic">1</span>: No username nor tag defined</p>
+                            <p class="mb-0"><span class="text-danger text-small text-italic">2</span>: No container nor callback defined</p>
+                            <p class="mb-0"><span class="text-danger text-small text-italic">3</span>: Profile is age restricted</p>
+                            <p class="mb-0"><span class="text-danger text-small text-italic">4</span>: Network banned</p>
+                            <p class="mb-0"><span class="text-danger text-small text-italic">5</span>: Request error</p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -287,43 +293,43 @@
                     <li class="nav-item">
                         <a class="nav-link active" id="example1-tab" 
                            href="#example1" role="tab"
-                           aria-controls="Example 1" aria-selected="true"                           
+                           aria-controls="example1" aria-selected="true"
                            data-toggle="tab">Example 1</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="example2-tab" 
                            href="#example2" role="tab"
-                           aria-controls="Example 2" aria-selected="false"                           
+                           aria-controls="example2" aria-selected="false"
                            data-toggle="tab">Example 2</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="example3-tab" 
                            href="#example3" role="tab"
-                           aria-controls="Example 3" aria-selected="false"                           
+                           aria-controls="example3" aria-selected="false"
                            data-toggle="tab">Example 3</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="example4-tab" 
                            href="#example4" role="tab"
-                           aria-controls="Example 4" aria-selected="false"                           
+                           aria-controls="example4" aria-selected="false"
                            data-toggle="tab">Example 4</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="example5-tab" 
                            href="#example5" role="tab"
-                           aria-controls="Example 5" aria-selected="false"                           
+                           aria-controls="example5" aria-selected="false"
                            data-toggle="tab">Example 5</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="example6-tab" 
                            href="#example6" role="tab"
-                           aria-controls="Example 6" aria-selected="false"                           
+                           aria-controls="example6" aria-selected="false"
                            data-toggle="tab">Example 6</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="example7-tab" 
                            href="#example7" role="tab"
-                           aria-controls="Example 7" aria-selected="false"                           
+                           aria-controls="example7" aria-selected="false"
                            data-toggle="tab">Example 7</a>
                     </li>
                 </ul>
@@ -549,7 +555,7 @@
                 'username': 'instagram',
                 'callback': function(data){
                     $('#jsonHere').html(JSON.stringify(data, null, 2));
-                }</strong>
+                }
             });
         });
     })(jQuery);

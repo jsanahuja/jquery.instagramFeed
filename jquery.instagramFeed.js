@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.3.1
+ * @version 1.3.2
  *
  * @author Javier Sanahuja Liebana <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja10@gmail.com>
@@ -25,8 +25,8 @@
         'items_per_row': 4,
         'margin': 0.5,
         'image_size': 640,
-        'lazy_load': false
-
+        'lazy_load': false,
+        'on_error': console.error
     };
     var image_sizes = {
         "150": 0,
@@ -54,17 +54,14 @@
     $.instagramFeed = function (opts) {
         var options = $.fn.extend({}, defaults, opts);
         if (options.username == "" && options.tag == "") {
-            console.error("Instagram Feed: Error, no username or tag found.");
+            options.on_error("Instagram Feed: Error, no username nor tag defined.", 1);
             return false;
         }
-        if (typeof options.get_raw_json !== "undefined") {
-            console.warn("Instagram Feed: get_raw_json is deprecated. Leave options.container undefined instead of setting options.get_raw_json to true");
-        }
         if (typeof options.get_data !== "undefined") {
-            console.warn("Instagram Feed: options.get_data is deprecated. Leave options.container undefined instead of setting options.get_data to true");
+            console.warn("Instagram Feed: options.get_data is deprecated, options.callback is always called if defined");
         }
         if (options.callback == null && options.container == "") {
-            console.error("Instagram Feed: Error, neither container found nor callback defined.");
+            options.on_error("Instagram Feed: Error, neither container found nor callback defined.", 2);
             return false;
         }
 
@@ -75,13 +72,13 @@
             try {
                 data = data.split("window._sharedData = ")[1].split("<\/script>")[0];
             } catch (e) {
-                console.error("Instagram Feed: It looks like the profile you are trying to fetch is age restricted. See https://github.com/jsanahuja/InstagramFeed/issues/26");
+                options.on_error("Instagram Feed: It looks like the profile you are trying to fetch is age restricted. See https://github.com/jsanahuja/InstagramFeed/issues/26", 3);
                 return;
             }
             data = JSON.parse(data.substr(0, data.length - 1));
             data = data.entry_data.ProfilePage || data.entry_data.TagPage;
             if (typeof data === "undefined") {
-                console.error("Instagram Feed: It looks like YOUR network has been temporary banned because of too many requests. See https://github.com/jsanahuja/jquery.instagramFeed/issues/25");
+                options.on_error("Instagram Feed: It looks like YOUR network has been temporary banned because of too many requests. See https://github.com/jsanahuja/jquery.instagramFeed/issues/25", 4)
                 return;
             }
             data = data[0].graphql.user || data[0].graphql.hashtag;
@@ -195,7 +192,7 @@
             }
 
         }).fail(function (e) {
-            console.error("Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: ", e.status);
+            options.on_error("Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: " + e.status, 5);
         });
 
         return true;
