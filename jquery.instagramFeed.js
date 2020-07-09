@@ -78,7 +78,7 @@
             data = JSON.parse(data.substr(0, data.length - 1));
             data = data.entry_data.ProfilePage || data.entry_data.TagPage;
             if (typeof data === "undefined") {
-                options.on_error("Instagram Feed: It looks like YOUR network has been temporary banned because of too many requests. See https://github.com/jsanahuja/jquery.instagramFeed/issues/25", 4)
+                options.on_error("Instagram Feed: It looks like YOUR network has been temporary banned because of too many requests. See https://github.com/jsanahuja/jquery.instagramFeed/issues/25", 4);
                 return;
             }
             data = data[0].graphql.user || data[0].graphql.hashtag;

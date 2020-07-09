@@ -149,7 +149,7 @@
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Instagram username from where to retrieve the feed</td>
+                        <td>Instagram username from where to retrieve the feed. Required if <span class="text-small text-italic">tag</span> is not defined.</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -158,7 +158,7 @@
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Instagram tag from where to retrieve the feed</td>
+                        <td>Instagram tag from where to retrieve the feed. Required if <span class="text-small text-italic">username</span> is not defined.</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -167,7 +167,7 @@
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Selector where to place the feed. Do not define it if you going to process raw data yourself in a callback.</td>
+                        <td>Selector where to place the feed. Required if callback is not defined.</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -176,7 +176,7 @@
                         </td>
                         <td><em>function(data)</em></td>
                         <td><code>null</code></td>
-                        <td>Function callback. Use to get raw data or do some post processing</td>
+                        <td>Callback function with all the data fetched from instagram. Required if container is not defined.</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -192,7 +192,7 @@
                         </td>
                         <td><em>Boolean</em></td>
                         <td><code>true</code></td>
-                        <td>Enables displaying the biography. Only for users</td>
+                        <td>Enables displaying the biography. Not compatible when loading a <span class="text-small text-italic">tag</span> feed</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -216,7 +216,7 @@
                         </td>
                         <td><em>Boolean</em></td>
                         <td><code>true</code></td>
-                        <td>Enables default inline css styles</td>
+                        <td>Enables default inline CSS styles</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -256,7 +256,7 @@
                         </td>
                         <td><em>number [Int]</em></td>
                         <td><code>640</code></td>
-                        <td>Scale of items to build gallery. Accepted values [150, 240, 320, 480, 640]. Does not apply to video previews.</td>
+                        <td>Native resolution of the images that will be displayed in the gallery. Accepted values [150, 240, 320, 480, 640]. Does not apply to video previews.</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -360,7 +360,8 @@
                 'items': 8,
                 'items_per_row': 4,
                 'margin': 1,
-                'lazy_load': true 
+                'lazy_load': true,
+                'on_error': console.error
             });
         });
     })(jQuery);
@@ -598,7 +599,9 @@
                     'styling': true,
                     'items': 8,
                     'items_per_row': 4,
-                    'margin': 1
+                    'margin': 1,
+                    'lazy_load': true,
+                    'on_error': console.error
                 }); 
                 
                 $.instagramFeed({
