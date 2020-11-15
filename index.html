@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>jquery.instagramFeed</title>
-
+    
+    <!-- jquery.instagramFeed HAS NO DEPENDENCIES (but jquery). You don't need any of those, it's just for documentation!! -->
+    <!-- jquery.instagramFeed HAS NO DEPENDENCIES (but jquery). You don't need any of those, it's just for documentation!! -->
+    <!-- jquery.instagramFeed HAS NO DEPENDENCIES (but jquery). You don't need any of those, it's just for documentation!! -->
     <link rel="stylesheet" 
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
@@ -25,6 +28,9 @@
         
     <script src="https://www.sowecms.com/demos/statics/prism.js"></script>
     <link rel="stylesheet" type="text/css" href="https://www.sowecms.com/demos/statics/prism.css">
+    <!-- jquery.instagramFeed HAS NO DEPENDENCIES (but jquery). You don't need any of those, it's just for documentation!! -->
+    <!-- jquery.instagramFeed HAS NO DEPENDENCIES (but jquery). You don't need any of those, it's just for documentation!! -->
+    <!-- jquery.instagramFeed HAS NO DEPENDENCIES (but jquery). You don't need any of those, it's just for documentation!! -->
 
     <style>
 
@@ -204,6 +210,14 @@
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">display_captions</code>
+                        </td>
+                        <td><em>Boolean</em></td>
+                        <td><code>false</code></td>
+                        <td>Enables displaying captions for each post as overlay on hover</td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
                             <code class="text-bold flex-grow-1">display_igtv</code>
                         </td>
                         <td><em>Boolean</em></td>
@@ -355,6 +369,7 @@
                 'display_profile': true,
                 'display_biography': true,
                 'display_gallery': true,
+                'display_captions': true,
                 'callback': null,
                 'styling': true,
                 'items': 8,
@@ -384,9 +399,10 @@
             $.instagramFeed({
                 'username': 'github',
                 'container': "#instagram-feed2",
-                <strong>'display_profile': false,
-                'display_biography': false,</strong>
+                'display_profile': false,
+                'display_biography': false,
                 'display_gallery': true,
+                'display_captions': false,
                 'callback': null,
                 'styling': true,
                 'items': 8,
@@ -417,11 +433,12 @@
                 'display_profile': false,
                 'display_biography': false,
                 'display_gallery': true,
+                'display_captions': false,
                 'callback': null,
                 'styling': true,
-                <strong>'items': 12,
+                'items': 12,
                 'items_per_row': 6,
-                'margin': 0.25</strong>
+                'margin': 0.25
             });
         });
     })(jQuery);
@@ -442,10 +459,11 @@
     (function($){
         $(window).on('load', function(){
             $.instagramFeed({
-                <strong>'tag': 'paradise',</strong>
+                'tag': 'paradise',
                 'container': "#instagram-feed4",
                 'display_profile': true,
                 'display_gallery': true,
+                'display_captions': true,
                 'items': 100,
                 'items_per_row': 5,
                 'margin': 0.5
@@ -474,7 +492,8 @@
                 'display_profile': false,
                 'display_biography': false,
                 'display_gallery': false,
-                <strong>'display_igtv': true,</strong>
+                'display_captions': false,
+                'display_igtv': true,
                 'callback': null,
                 'styling': true,
                 'items': 8,
@@ -525,6 +544,7 @@
                 'display_profile': true,
                 'display_biography': true,
                 'display_gallery': true,
+                'display_captions': false,
                 'display_igtv': true,
                 'callback': null,
                 <strong>'styling': false,</strong>
@@ -595,6 +615,7 @@
                     'display_profile': true,
                     'display_biography': true,
                     'display_gallery': true,
+                    'display_captions': true,
                     'callback': null,
                     'styling': true,
                     'items': 8,
@@ -610,6 +631,7 @@
                     'display_profile': false,
                     'display_biography': false,
                     'display_gallery': true,
+                    'display_captions': false,
                     'callback': null,
                     'styling': true,
                     'items': 8,
@@ -622,6 +644,7 @@
                     'display_profile': false,
                     'display_biography': false,
                     'display_gallery': true,
+                    'display_captions': false,
                     'callback': null,
                     'styling': true,
                     'items': 12,
@@ -633,6 +656,7 @@
                     'container': "#instagram-feed4",
                     'display_profile': true,
                     'display_gallery': true,
+                    'display_captions': true,
                     'items': 100,
                     'items_per_row': 5,
                     'margin': 0.5
@@ -643,6 +667,7 @@
                     'display_profile': false,
                     'display_biography': false,
                     'display_gallery': false,
+                    'display_captions': false,
                     'display_igtv': true,
                     'callback': null,
                     'styling': true,

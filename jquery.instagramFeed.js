@@ -1,9 +1,9 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.3.2
+ * @version 1.4.0
  *
- * @author Javier Sanahuja Liebana <bannss1@gmail.com>
+ * @author jsanahuja <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja10@gmail.com>
  *
  * https://github.com/jsanahuja/jquery.instagramFeed
@@ -18,6 +18,7 @@
         'display_profile': true,
         'display_biography': true,
         'display_gallery': true,
+        'display_captions': false,
         'display_igtv': false,
         'callback': null,
         'styling': true,
@@ -49,6 +50,31 @@
         return str.replace(/[&<>"'`=\/]/g, function (char) {
             return escape_map[char];
         });
+    }
+    function parse_caption(igobj, data){
+        if (
+            typeof igobj.node.edge_media_to_caption.edges[0] !== "undefined" && 
+            typeof igobj.node.edge_media_to_caption.edges[0].node !== "undefined" && 
+            typeof igobj.node.edge_media_to_caption.edges[0].node.text !== "undefined" && 
+            igobj.node.edge_media_to_caption.edges[0].node.text !== null
+        ) {
+            return igobj.node.edge_media_to_caption.edges[0].node.text;
+        }
+        if (
+            typeof igobj.node.title !== "undefined" &&
+            igobj.node.title !== null &&
+            igobj.node.title.length != 0
+        ) {
+            return igobj.node.title;
+        }
+        if (
+            typeof igobj.node.accessibility_caption !== "undefined" &&
+            igobj.node.accessibility_caption !== null &&
+            igobj.node.accessibility_caption.length != 0
+        ) {
+            return igobj.node.accessibility_caption;
+        }
+        return (this.is_tag ? data.name : data.username) + " image ";
     }
 
     $.instagramFeed = function (opts) {
@@ -84,30 +110,56 @@
             data = data[0].graphql.user || data[0].graphql.hashtag;
 
             if (options.container != "") {
-                //Setting styles
-                var styles = {
-                    'profile_container': "",
-                    'profile_image': "",
-                    'profile_name': "",
-                    'profile_biography': "",
-                    'gallery_image': ""
-                };
+                var html = "",
+                    styles;
+
+                // Setting styles
                 if (options.styling) {
-                    styles.profile_container = " style='text-align:center;'";
-                    styles.profile_image = " style='border-radius:10em;width:15%;max-width:125px;min-width:50px;'";
-                    styles.profile_name = " style='font-size:1.2em;'";
-                    styles.profile_biography = " style='font-size:1em;'";
                     var width = (100 - options.margin * 2 * options.items_per_row) / options.items_per_row;
-                    styles.gallery_image = " style='margin:" + options.margin + "% " + options.margin + "%;width:" + width + "%;float:left;'";
+                    styles = {
+                        profile_container: ' style="text-align:center;"',
+                        profile_image: ' style="border-radius:10em;width:15%;max-width:125px;min-width:50px;"',
+                        profile_name: ' style="font-size:1.2em;"',
+                        profile_biography: ' style="font-size:1em;"',
+                        gallery_image: ' style="width:100%;"',
+                        gallery_image_link: ' style="width:' + width + '%; margin:' + options.margin + '%;position:relative; display: inline-flex; height: 100%;"'
+                    };
+                    
+                    if(options.display_captions){
+                        html += "<style>\
+                            a[data-caption]:hover::after {\
+                                content: attr(data-caption);\
+                                text-align: center;\
+                                font-size: 0.8rem;\
+                                color: black;\
+                                position: absolute;\
+                                bottom: 0;\
+                                padding: 1%;\
+                                max-height: 100%;\
+                                width: 100%;\
+                                overflow-y: auto;\
+                                overflow-x: hidden;\
+                                background-color: hsla(0, 100%, 100%, 0.8);\
+                            }\
+                        </style>";
+                    }
+                }else{
+                    styles = {
+                        profile_container: "",
+                        profile_image: "",
+                        profile_name: "",
+                        profile_biography: "",
+                        gallery_image: "",
+                        gallery_image_link: ""
+                    };
                 }
 
-                var html = "";
                 //Displaying profile
                 if (options.display_profile) {
-                    html += "<div class='instagram_profile'" + styles.profile_container + ">";
-                    html += "<img class='instagram_profile_image' src='" + data.profile_pic_url  + "' alt='"+ (is_tag ? data.name + " tag pic" : data.username + " profile pic") + "'" + styles.profile_image + (options.lazy_load ? " loading='lazy'" : '') + " />";
+                    html += '<div class="instagram_profile"' + styles.profile_container + '>';
+                    html += '<img class="instagram_profile_image" src="' + data.profile_pic_url  + '" alt="'+ (is_tag ? data.name + ' tag pic' : data.username + ' profile pic') + '"' + styles.profile_image + (options.lazy_load ? ' loading="lazy"' : '') + ' />';
                     if (is_tag)
-                        html += "<p class='instagram_tag'" + styles.profile_name + "><a href='https://www.instagram.com/explore/tags/" + options.tag + "' rel='noopener' target='_blank'>#" + options.tag + "</a></p>";
+                        html += '<p class="instagram_tag"' + styles.profile_name + '><a href="https://www.instagram.com/explore/tags/' + options.tag + '" rel="noopener" target="_blank">#' + options.tag + '</a></p>';
                     else
                         html += "<p class='instagram_username'" + styles.profile_name + ">@" + data.full_name + " (<a href='https://www.instagram.com/" + options.username + "' rel='noopener' target='_blank'>@" + options.username + "</a>)</p>";
 
@@ -122,7 +174,7 @@
 
                 if (options.display_gallery) {
                     if (typeof data.is_private !== "undefined" && data.is_private === true) {
-                        html += "<p class='instagram_private'><strong>This profile is private</strong></p>";
+                        html += '<p class="instagram_private"><strong>This profile is private</strong></p>';
                     } else {
                         var imgs = (data.edge_owner_to_timeline_media || data.edge_hashtag_to_media).edges;
                         max = (imgs.length > options.items) ? options.items : imgs.length;
@@ -130,7 +182,8 @@
                         html += "<div class='instagram_gallery'>";
                         for (var i = 0; i < max; i++) {
                             var url = "https://www.instagram.com/p/" + imgs[i].node.shortcode,
-                                image, type_resource, caption;
+                                image, type_resource, 
+                                caption = escape_string(parse_caption(imgs[i], data));
 
                             switch (imgs[i].node.__typename) {
                                 case "GraphSidecar":
@@ -146,27 +199,11 @@
                                     image = imgs[i].node.thumbnail_resources[image_index].src;
                             }
 
-                            if (
-                                typeof imgs[i].node.edge_media_to_caption.edges[0] !== "undefined" &&
-                                typeof imgs[i].node.edge_media_to_caption.edges[0].node !== "undefined" &&
-                                typeof imgs[i].node.edge_media_to_caption.edges[0].node.text !== "undefined" &&
-                                imgs[i].node.edge_media_to_caption.edges[0].node.text !== null
-                            ) {
-                                caption = imgs[i].node.edge_media_to_caption.edges[0].node.text;
-                            } else if (
-                                typeof imgs[i].node.accessibility_caption !== "undefined" &&
-                                imgs[i].node.accessibility_caption !== null
-                            ) {
-                                caption = imgs[i].node.accessibility_caption;
-                            } else {
-                                caption = (is_tag ? data.name : data.username) + " image " + i;
-                            }
-
-                            html += "<a href='" + url + "' class='instagram-" + type_resource + "' rel='noopener' target='_blank'>";
-                            html += "<img" + (options.lazy_load ? " loading='lazy'" : '')  + " src='" + image + "' alt='" + escape_string(caption) + "'" + styles.gallery_image +" />";
-                            html += "</a>";
+                            html += '<a href="' + url + '"' + (options.display_captions ? ' data-caption="' + caption + '"' : '') + ' class="instagram-' + type_resource + '" rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
+                            html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + image + '" alt="' + caption + '"' + styles.gallery_image + ' />';
+                            html += '</a>';
                         }
-                        html += "</div>";
+                        html += '</div>';
                     }
                 }
 
@@ -174,13 +211,16 @@
                     var igtv = data.edge_felix_video_timeline.edges,
                         max = (igtv.length > options.items) ? options.items : igtv.length
                     if (igtv.length > 0) {
-                        html += "<div class='instagram_igtv'>";
+                        html += '<div class="instagram_igtv">';
                         for (var i = 0; i < max; i++) {
-                            html += "<a href='https://www.instagram.com/p/" + igtv[i].node.shortcode + "' rel='noopener' target='_blank'>";
-                            html += "<img"+ (options.lazy_load ? " loading='lazy'" : '') + " src='"+ igtv[i].node.thumbnail_src +"' alt='"+ options.username +" instagram image "+ i+"'"+styles.gallery_image+" />";
-                            html += "</a>";
+                            var url = 'https://www.instagram.com/p/' + igtv[i].node.shortcode,
+                                caption = escape_string(parse_caption(igtv[i], data));
+
+                            html += '<a href="' + url + '"' + (options.display_captions ? ' data-caption="' + caption + '"' : '') + ' rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
+                            html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + igtv[i].node.thumbnail_src + '" alt="' + caption + '"' + styles.gallery_image + ' />';
+                            html += '</a>';
                         }
-                        html += "</div>";
+                        html += '</div>';
                     }
                 }
 
