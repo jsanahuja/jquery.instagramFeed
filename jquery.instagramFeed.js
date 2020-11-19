@@ -122,7 +122,7 @@
                         profile_name: ' style="font-size:1.2em;"',
                         profile_biography: ' style="font-size:1em;"',
                         gallery_image: ' style="width:100%;"',
-                        gallery_image_link: ' style="width:' + width + '%; margin:' + options.margin + '%;position:relative; display: inline-flex; height: 100%;"'
+                        gallery_image_link: ' style="width:' + width + '%; margin:' + options.margin + '%;position:relative; display: inline-block; height: 100%;"'
                     };
                     
                     if(options.display_captions){
@@ -133,10 +133,11 @@
                                 font-size: 0.8rem;\
                                 color: black;\
                                 position: absolute;\
+                                left: 0;\
+                                right: 0;\
                                 bottom: 0;\
                                 padding: 1%;\
                                 max-height: 100%;\
-                                width: 100%;\
                                 overflow-y: auto;\
                                 overflow-x: hidden;\
                                 background-color: hsla(0, 100%, 100%, 0.8);\
