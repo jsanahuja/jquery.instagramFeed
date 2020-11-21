@@ -19,6 +19,7 @@
     <div style="display:none" id="instagram-feed3"></div>
     <div style="display:none" id="instagram-feed4"></div>
     <div style="display:none" id="instagram-feed5"></div>
+    <div style="display:none" id="instagram-feed6"></div>
     <script src="jquery.instagramFeed.min.js"></script>
     <script>
         (function($){
@@ -149,14 +150,34 @@
                 });
                 
                 QUnit.test("Test7", function( assert ) {
-                    var status = $.instagramFeed({});
-                    assert.ok(status === false, "Passed Test7 (no username nor tag)!");
+                    var failed = false;
+                    try{
+                        $.instagramFeed({
+                            'tag': 'paradise',
+                            'container': "#instagram-feed5",
+                            'display_profile': true,
+                            'display_gallery': true,
+                            'display_captions': true,
+                            'items': 100,
+                            'items_per_row': 5,
+                            'margin': 0.5,
+                            'random': true
+                        });
+                    }catch(e){
+                        failed = true;
+                    }
+                    assert.ok(failed === false, "Passed Test7!");
                 });
+
                 QUnit.test("Test8", function( assert ) {
+                    var status = $.instagramFeed({});
+                    assert.ok(status === false, "Passed Test8 (no username nor tag)!");
+                });
+                QUnit.test("Test9", function( assert ) {
                     var status = $.instagramFeed({
                         "username": "travisci"
                     });
-                    assert.ok(status === false, "Passed Test8! (no container nor callback)");
+                    assert.ok(status === false, "Passed Test9! (no container nor callback)");
                 });
             });
         })(jQuery);

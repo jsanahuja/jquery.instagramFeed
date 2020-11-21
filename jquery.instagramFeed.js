@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.4.1
+ * @version 1.4.2
  *
  * @author jsanahuja <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja10@gmail.com>
@@ -22,6 +22,7 @@
         'display_igtv': false,
         'callback': null,
         'styling': true,
+        'random': true,
         'items': 8,
         'items_per_row': 4,
         'margin': 0.5,
@@ -180,8 +181,25 @@
                         var imgs = (data.edge_owner_to_timeline_media || data.edge_hashtag_to_media).edges;
                         max = (imgs.length > options.items) ? options.items : imgs.length;
 
+                        if (options.random) {
+                            for (var i = 0; i < max; i++) {	                        var total = (12 < max) ? max : 12;
+                                for (var init_array = [], i = 0; i < total; ++i) init_array[i] = i;
+                                function select_images(input_array) {
+                                    var index, output_array = [];
+                                    for (var i = 0; i < max; i++) {
+                                      index = Math.floor(Math.random() * (total - i));
+                                      output_array.push(input_array[index])
+                                      input_array.splice(index, 1)
+                                    }
+                                    return output_array;
+                                }
+                                rand_array = select_images(init_array);
+                            }
+                        }
+
                         html += "<div class='instagram_gallery'>";
-                        for (var i = 0; i < max; i++) {
+                        for (var j = 0; j < max; j++) {
+                            i = (options.random) ? rand_array[j] : j;
                             var url = "https://www.instagram.com/p/" + imgs[i].node.shortcode,
                                 image, type_resource, 
                                 caption = escape_string(parse_caption(imgs[i], data));
