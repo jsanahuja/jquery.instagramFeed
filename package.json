@@ -1,42 +1,41 @@
 {
-	"name": "jquery.instagramFeed",
-	"description": "Instagram Feed without access token. Not using the Instagram API",
-	"homepage": "https://github.com/jsanahuja/jquery.instagramFeed",
-	"version": "1.4.2",
-	"keywords": [
-	  "instagram",
-	  "feed",
-	  "instagramfeed",
-	  "without",
-	  "access",
-	  "token"
-	],
-	"author": {
-	  "name": "Javier Sanahuja",
-	  "email": "bannss1@gmail.com"
-	},
-	"contributors": [
-	  {
-		"name": "Cristian Sanahuja",
-		"email": "csanahuja10@gmail.com"
-	  }
-	],
-	"repository": {
-	  "type": "git",
-	  "url": "https://github.com/jsanahuja/jquery.instagramFeed.git"
-	},
-	"license": "MIT",
-	"devDependencies": {
-	  "grunt": "^1.1.0",
-	  "grunt-contrib-qunit": "^3.1.0",
-	  "@babel/core": "^7.8.3",
-	  "@babel/preset-env": "^7.8.3",
-	  "babel-preset-minify": "^0.5.1",
-	  "grunt-babel": "^8.0.0"
-	},
-	"scripts": {
-	  "test": "grunt test",
-	  "build": "grunt build"
-	}
+  "name": "jquery.instagramFeed",
+  "description": "Instagram Feed without access token. Not using the Instagram API",
+  "homepage": "https://github.com/jsanahuja/jquery.instagramFeed",
+  "version": "2.0.0",
+  "keywords": [
+    "instagram",
+    "feed",
+    "instagramfeed",
+    "without",
+    "access",
+    "token"
+  ],
+  "author": {
+    "name": "Javier Sanahuja",
+    "email": "bannss1@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Cristian Sanahuja",
+      "email": "csanahuja10@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsanahuja/jquery.instagramFeed.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.1.0",
+    "grunt-contrib-qunit": "^3.1.0",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "babel-preset-minify": "^0.5.1",
+    "grunt-babel": "^8.0.0"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "build": "grunt build"
   }
-  
+}

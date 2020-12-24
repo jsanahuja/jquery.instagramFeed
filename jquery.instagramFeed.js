@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 1.4.2
+ * @version 2.0.0
  *
  * @author jsanahuja <bannss1@gmail.com>
  * @contributor csanahuja <csanahuja10@gmail.com>
@@ -27,7 +27,7 @@
         'margin': 0.5,
         'image_size': 640,
         'lazy_load': false,
-        'cache_time': 0,
+        'cache_time': 120,
         'on_error': console.error
     };
     var image_sizes = {
@@ -89,12 +89,12 @@
                 }
                 data = JSON.parse(data.substr(0, data.length - 1));
                 data = data.entry_data.ProfilePage || data.entry_data.TagPage;
+
                 var skipCaching = false;
                 if (typeof data === "undefined") {
-                    var cache_data_raw = localStorage[cache_data_key];
-                    if (cache_data_raw) {
-                        cache_data = JSON.parse(cache_data_raw);
-                        data = cache_data;
+                    var cache_data_raw = localStorage.getItem(cache_data_key);
+                    if (cache_data_raw !== null) {
+                        data = JSON.parse(cache_data_raw);
                         skipCaching = true;
                     }
 
@@ -102,17 +102,17 @@
                     if (!data) return;
                 }
                 if (!skipCaching && options.cache_time > 0) {
-                    localStorage[cache_data_key] = JSON.stringify(data);
-                    localStorage[cache_data_key_cached] = new Date().getTime();
+                    localStorage.setItem(cache_data_key, JSON.stringify(data));
+                    localStorage.setItem(cache_data_key_cached, new Date().getTime());
                 }
             }
-    
+        
             data = data[0].graphql.user || data[0].graphql.hashtag;
     
             if (options.container != "") {
                 var html = "",
                     styles;
-    
+
                 // Setting styles
                 if (options.styling) {
                     var width = (100 - options.margin * 2 * options.items_per_row) / options.items_per_row;
@@ -154,7 +154,7 @@
                         gallery_image_link: ""
                     };
                 }
-    
+
                 //Displaying profile
                 if (options.display_profile) {
                     html += '<div class="instagram_profile"' + styles.profile_container + '>';
@@ -163,29 +163,29 @@
                         html += '<p class="instagram_tag"' + styles.profile_name + '><a href="https://www.instagram.com/explore/tags/' + options.tag + '" rel="noopener" target="_blank">#' + options.tag + '</a></p>';
                     else
                         html += "<p class='instagram_username'" + styles.profile_name + ">@" + data.full_name + " (<a href='https://www.instagram.com/" + options.username + "' rel='noopener' target='_blank'>@" + options.username + "</a>)</p>";
-    
+
                     if (!is_tag && options.display_biography)
                         html += "<p class='instagram_biography'" + styles.profile_biography + ">" + data.biography + "</p>";
-    
+
                     html += "</div>";
                 }
-    
+
                 //image size
                 var image_index = typeof image_sizes[options.image_size] !== "undefined" ? image_sizes[options.image_size] : image_sizes[640];
-    
+
                 if (options.display_gallery) {
                     if (typeof data.is_private !== "undefined" && data.is_private === true) {
                         html += '<p class="instagram_private"><strong>This profile is private</strong></p>';
                     } else {
                         var imgs = (data.edge_owner_to_timeline_media || data.edge_hashtag_to_media).edges;
                         max = (imgs.length > options.items) ? options.items : imgs.length;
-    
+
                         html += "<div class='instagram_gallery'>";
                         for (var i = 0; i < max; i++) {
                             var url = "https://www.instagram.com/p/" + imgs[i].node.shortcode,
                                 image, type_resource, 
                                 caption = escape_string(parse_caption(imgs[i], data));
-    
+
                             switch (imgs[i].node.__typename) {
                                 case "GraphSidecar":
                                     type_resource = "sidecar"
@@ -199,7 +199,7 @@
                                     type_resource = "image";
                                     image = imgs[i].node.thumbnail_resources[image_index].src;
                             }
-    
+
                             html += '<a href="' + url + '"' + (options.display_captions ? ' data-caption="' + caption + '"' : '') + ' class="instagram-' + type_resource + '" rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
                             html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + image + '" alt="' + caption + '"' + styles.gallery_image + ' />';
                             html += '</a>';
@@ -207,7 +207,7 @@
                         html += '</div>';
                     }
                 }
-    
+
                 if (options.display_igtv && typeof data.edge_felix_video_timeline !== "undefined") {
                     var igtv = data.edge_felix_video_timeline.edges,
                         max = (igtv.length > options.items) ? options.items : igtv.length
@@ -216,7 +216,7 @@
                         for (var i = 0; i < max; i++) {
                             var url = 'https://www.instagram.com/p/' + igtv[i].node.shortcode,
                                 caption = escape_string(parse_caption(igtv[i], data));
-    
+
                             html += '<a href="' + url + '"' + (options.display_captions ? ' data-caption="' + caption + '"' : '') + ' rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
                             html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + igtv[i].node.thumbnail_src + '" alt="' + caption + '"' + styles.gallery_image + ' />';
                             html += '</a>';
@@ -224,14 +224,14 @@
                         html += '</div>';
                     }
                 }
-    
+
                 $(options.container).html(html);
             }
-    
+
             if (options.callback != null) {
                 options.callback(data);
             }
-    
+
         }
 
         var options = $.fn.extend({}, defaults, opts);
@@ -248,18 +248,22 @@
         }
 
         var is_tag = options.username == "",
-            url = is_tag ? options.host + "explore/tags/" + options.tag + "/" : options.host + options.username + "/";
-
-        var cache_data = null;
-        var cache_data_key = 'instagramFeed_' + url;
-        var cache_data_key_cached = cache_data_key + '_cached';
-        if (options.cache_time > 0 && +localStorage[cache_data_key_cached] + 1000 * 60 * options.cache_time > new Date().getTime()) {
-            var cache_data_raw = localStorage[cache_data_key];
-
-            if (cache_data_raw) cache_data = JSON.parse(cache_data_raw);
+            url = is_tag ? options.host + "explore/tags/" + options.tag + "/" : options.host + options.username + "/",
+            cache_data = null,
+            cache_data_key = 'instagramFeed_' + (is_tag ? options.tag : options.username),
+            cache_data_key_cached = cache_data_key + '_cached';
+        
+        if (options.cache_time > 0) {
+            var cached_time = localStorage.getItem(cache_data_key_cached);
+            if (cached_time !== null && parseInt(cached_time) + 1000 * 60 * options.cache_time > new Date().getTime()) {
+                var cache_data_raw = localStorage.getItem(cache_data_key);
+                if(cache_data_raw !== null){
+                    cache_data = JSON.parse(cache_data_raw);
+                }
+            }
         }
 
-        if (cache_data) {
+        if (cache_data !== null) {
             on_get_insta_data(cache_data);
         } else {
             $.get(url, on_get_insta_data).fail(function (e) {
