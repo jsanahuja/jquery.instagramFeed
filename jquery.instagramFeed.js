@@ -250,7 +250,7 @@
         var is_tag = options.username == "",
             url = is_tag ? options.host + "explore/tags/" + options.tag + "/" : options.host + options.username + "/",
             cache_data = null,
-            cache_data_key = 'instagramFeed_' + (is_tag ? options.tag : options.username),
+            cache_data_key = 'instagramFeed_' + (is_tag ? 't_' + options.tag : 'u_' + options.username),
             cache_data_key_cached = cache_data_key + '_cached';
         
         if (options.cache_time > 0) {
