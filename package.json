@@ -2,7 +2,7 @@
   "name": "jquery.instagramFeed",
   "description": "Instagram Feed without access token. Not using the Instagram API",
   "homepage": "https://github.com/jsanahuja/jquery.instagramFeed",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "keywords": [
     "instagram",
     "feed",
