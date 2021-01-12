@@ -1,10 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 2.0.0
- *
- * @author jsanahuja <bannss1@gmail.com>
- * @contributor csanahuja <csanahuja10@gmail.com>
+ * @version 2.0.1
  *
  * https://github.com/jsanahuja/jquery.instagramFeed
  *
@@ -27,7 +24,7 @@
         'margin': 0.5,
         'image_size': 640,
         'lazy_load': false,
-        'cache_time': 120,
+        'cache_time': 360,
         'on_error': console.error
     };
     var image_sizes = {
@@ -98,7 +95,7 @@
                         skipCaching = true;
                     }
 
-                    options.on_error("Instagram Feed: It looks like YOUR network has been temporary banned because of too many requests. See https://github.com/jsanahuja/jquery.instagramFeed/issues/25", 4);
+                    options.on_error("Instagram Feed: Your network has been temporary banned by Instagram because of too many requests. Consider increasing your 'cache_time'. See https://github.com/jsanahuja/jquery.instagramFeed/issues/25 and https://github.com/jsanahuja/jquery.instagramFeed/issues/101", 4);
                     if (!data) return;
                 }
                 if (!skipCaching && options.cache_time > 0) {
