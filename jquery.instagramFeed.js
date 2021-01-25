@@ -9,6 +9,8 @@
 (function ($) {
     var defaults = {
         'host': "https://www.instagram.com/",
+        'proxyHost': "https://instagram-feed-proxy.herokuapp.com/?url=https://www.instagram.com/",
+        'useProxy': false,
         'username': '',
         'tag': '',
         'container': '',
@@ -243,6 +245,8 @@
             options.on_error("Instagram Feed: Error, neither container found nor callback defined.", 2);
             return false;
         }
+
+        if (options.useProxy) options.host = options.proxyHost;
 
         var is_tag = options.username == "",
             url = is_tag ? options.host + "explore/tags/" + options.tag + "/" : options.host + options.username + "/",

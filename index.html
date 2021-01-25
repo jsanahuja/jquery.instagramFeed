@@ -618,6 +618,7 @@
         (function($){
             $(window).on('load', function(){
                 $.instagramFeed({
+                    'useProxy': true,
                     'username': 'instagram',
                     'container': "#instagram-feed1",
                     'display_profile': true,
@@ -634,6 +635,7 @@
                 }); 
                 
                 $.instagramFeed({
+                    'useProxy': true,
                     'username': 'github',
                     'container': "#instagram-feed2",
                     'display_profile': false,
@@ -647,6 +649,7 @@
                     'margin': 1
                 });
                 $.instagramFeed({
+                    'useProxy': true,
                     'username': 'zara',
                     'container': "#instagram-feed3",
                     'display_profile': false,
@@ -660,6 +663,7 @@
                     'margin': 0.25
                 });
                 $.instagramFeed({
+                    'useProxy': true,
                     'tag': 'paradise',
                     'container': "#instagram-feed4",
                     'display_profile': true,
@@ -670,6 +674,7 @@
                     'margin': 0.5
                 });
                 $.instagramFeed({
+                    'useProxy': true,
                     'username': 'fcbarcelona',
                     'container': "#instagram-feed5",
                     'display_profile': false,
@@ -686,6 +691,7 @@
                 
                 //example 7
                 $.instagramFeed({
+                    'useProxy': true,
                     'username': 'instagram',
                     'callback': function(data){
                         $('#jsonHere').html(JSON.stringify(data, null, 2));
