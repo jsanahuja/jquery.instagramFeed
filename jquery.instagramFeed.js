@@ -79,7 +79,7 @@
             return igobj.node.accessibility_caption;
         }
 
-        return (this.is_tag ? data.name : data.username) + ' image ';
+        return `${this.is_tag ? data.name : data.username} image `;
     }
 
     $.instagramFeed = function(opts) {
@@ -131,27 +131,27 @@
                         profile_name: ' style="font-size:1.2em;"',
                         profile_biography: ' style="font-size:1em;"',
                         gallery_image: ' style="width:100%;"',
-                        gallery_image_link: ' style="width:' + width + '%; margin:' + options.margin + '%;position:relative; display: inline-block; height: 100%;"'
+                        gallery_image_link: ` style="width:${width}%; margin:${options.margin}%;position:relative; display: inline-block; height: 100%;"`
                     };
 
                     if (options.display_captions) {
-                        html += '<style>\
-                            a[data-caption]:hover::after {\
-                                content: attr(data-caption);\
-                                text-align: center;\
-                                font-size: 0.8rem;\
-                                color: black;\
-                                position: absolute;\
-                                left: 0;\
-                                right: 0;\
-                                bottom: 0;\
-                                padding: 1%;\
-                                max-height: 100%;\
-                                overflow-y: auto;\
-                                overflow-x: hidden;\
-                                background-color: hsla(0, 100%, 100%, 0.8);\
-                            }\
-                        </style>';
+                        html += `<style>
+                            a[data-caption]:hover::after {
+                                content: attr(data-caption);
+                                text-align: center;
+                                font-size: 0.8rem;
+                                color: black;
+                                position: absolute;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                padding: 1%;
+                                max-height: 100%;
+                                overflow-y: auto;
+                                overflow-x: hidden;
+                                background-color: hsla(0, 100%, 100%, 0.8);
+                            }
+                        </style>`;
                     }
                 } else {
                     styles = {
@@ -166,16 +166,16 @@
 
                 //Displaying profile
                 if (options.display_profile) {
-                    html += '<div class="instagram_profile"' + styles.profile_container + '>';
-                    html += '<img class="instagram_profile_image" src="' + data.profile_pic_url  + '" alt="'+ (is_tag ? data.name + ' tag pic' : data.username + ' profile pic') + '"' + styles.profile_image + (options.lazy_load ? ' loading="lazy"' : '') + ' />';
+                    html += `<div class="instagram_profile"${styles.profile_container}>`;
+                    html += `<img class="instagram_profile_image" src="${data.profile_pic_url}" alt="${is_tag ? data.name + ' tag pic' : data.username + ' profile pic'}" ${styles.profile_image} ${options.lazy_load ? 'loading="lazy"' : ''} />`;
 
                     if (is_tag) {
-                        html += '<p class="instagram_tag"' + styles.profile_name + '><a href="https://www.instagram.com/explore/tags/' + options.tag + '" rel="noopener" target="_blank">#' + options.tag + '</a></p>';
+                        html += `<p class="instagram_tag" ${styles.profile_name}><a href="https://www.instagram.com/explore/tags/${options.tag}" rel="noopener" target="_blank">#${options.tag}</a></p>`;
                     } else {
-                        html += '<p class="instagram_username"' + styles.profile_name + '>@' + data.full_name + ' (<a href="https://www.instagram.com/' + options.username + '" rel="noopener" target="_blank">@' + options.username + '</a>)</p>';
+                        html += `<p class="instagram_username"${styles.profile_name}>@${data.full_name} (<a href="https://www.instagram.com/${options.username}" rel="noopener" target="_blank">@${options.username}</a>)</p>`;
                     }
 
-                    if (!is_tag && options.display_biography) html += '<p class="instagram_biography"' + styles.profile_biography + '>' + data.biography + '</p>';
+                    if (!is_tag && options.display_biography) html += `<p class="instagram_biography" ${styles.profile_biography}>${data.biography}</p>`;
 
                     html += '</div>';
                 }
@@ -192,7 +192,7 @@
 
                         html += '<div class="instagram_gallery">';
                         for (let i = 0; i < max; i++) {
-                            let url = 'https://www.instagram.com/p/' + imgs[i].node.shortcode,
+                            let url = `https://www.instagram.com/p/${imgs[i].node.shortcode}`,
                                 image, type_resource,
                                 caption = escape_string(parse_caption(imgs[i], data));
 
@@ -210,8 +210,8 @@
                                     image = imgs[i].node.thumbnail_resources[image_index].src;
                             }
 
-                            html += '<a href="' + url + '"' + (options.display_captions ? ' data-caption="' + caption + '"' : '') + ' class="instagram-' + type_resource + '" rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
-                            html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + image + '" alt="' + caption + '"' + styles.gallery_image + ' />';
+                            html += `<a href="${url}" ${options.display_captions ? 'data-caption="' + caption + '"' : ''} class="instagram-${type_resource}" rel="noopener" target="_blank" ${styles.gallery_image_link}>`;
+                            html += `<img ${options.lazy_load ? ' loading="lazy"' : ''} src="${image}" alt="${caption}"' ${styles.gallery_image} />`;
                             html += '</a>';
                         }
 
@@ -227,11 +227,11 @@
                         html += '<div class="instagram_igtv">';
 
                         for (let i = 0; i < max; i++) {
-                            let url = 'https://www.instagram.com/p/' + igtv[i].node.shortcode,
+                            let url = `https://www.instagram.com/p/${igtv[i].node.shortcode}`,
                                 caption = escape_string(parse_caption(igtv[i], data));
 
-                            html += '<a href="' + url + '"' + (options.display_captions ? ' data-caption="' + caption + '"' : '') + ' rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
-                            html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + igtv[i].node.thumbnail_src + '" alt="' + caption + '"' + styles.gallery_image + ' />';
+                            html += `<a href="${url}" ${options.display_captions ? ' data-caption="' + caption + '"' : ''} rel="noopener" target="_blank" ${styles.gallery_image_link}>`;
+                            html += `<img ${options.lazy_load ? ' loading="lazy"' : ''} src="${igtv[i].node.thumbnail_src}" alt="${caption}" ${styles.gallery_image} />`;
                             html += '</a>';
                         }
 
@@ -261,10 +261,10 @@
         }
 
         let is_tag = options.username == '',
-            url = is_tag ? options.host + 'explore/tags/' + options.tag + '/' : options.host + options.username + '/',
+            url = is_tag ? `${options.host}explore/tags/${options.tag}/` : `${options.host}${options.username}/`,
             cache_data = null,
-            cache_data_key = 'instagramFeed_' + (is_tag ? 't_' + options.tag : 'u_' + options.username),
-            cache_data_key_cached = cache_data_key + '_cached';
+            cache_data_key = `instagramFeed_${is_tag ? 't_' + options.tag : 'u_' + options.username}`,
+            cache_data_key_cached = `${cache_data_key}_cached`;
 
         if (options.cache_time > 0) {
             let cached_time = localStorage.getItem(cache_data_key_cached);
@@ -279,7 +279,7 @@
             on_get_insta_data(cache_data);
         } else {
             $.get(url, on_get_insta_data).fail((e) => {
-                options.on_error('Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: ' + e.status, 5);
+                options.on_error(`Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: ${e.status}`, 5);
             });
         }
 
