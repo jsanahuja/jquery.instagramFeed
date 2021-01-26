@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 2.0.1
+ * @version 2.0.2
  *
  * https://github.com/jsanahuja/jquery.instagramFeed
  *
