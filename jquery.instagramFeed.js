@@ -54,30 +54,11 @@
     }
 
     function parse_caption(igobj, data) {
-        if (
-            typeof igobj.node.edge_media_to_caption.edges[0] !== 'undefined' && 
-            typeof igobj.node.edge_media_to_caption.edges[0].node !== 'undefined' && 
-            typeof igobj.node.edge_media_to_caption.edges[0].node.text !== 'undefined' && 
-            igobj.node.edge_media_to_caption.edges[0].node.text !== null
-        ) {
-            return igobj.node.edge_media_to_caption.edges[0].node.text;
-        }
+        const igNode = igobj.node;
 
-        if (
-            typeof igobj.node.title !== 'undefined' &&
-            igobj.node.title !== null &&
-            igobj.node.title.length != 0
-        ) {
-            return igobj.node.title;
-        }
-
-        if (
-            typeof igobj.node.accessibility_caption !== 'undefined' &&
-            igobj.node.accessibility_caption !== null &&
-            igobj.node.accessibility_caption.length != 0
-        ) {
-            return igobj.node.accessibility_caption;
-        }
+        if (igNode?.edge_media_to_caption?.edges[0]?.node?.text) return igNode.edge_media_to_caption.edges[0].node.text;
+        if (igNode?.title?.length) return igNode.title;
+        if (igNode?.accessibility_caption?.length) return igNode.accessibility_caption;
 
         return `${this.is_tag ? data.name : data.username} image `;
     }
