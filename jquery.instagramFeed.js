@@ -27,6 +27,7 @@
         'cache_time': 360,
         'on_error': console.error
     };
+
     const image_sizes = {
         '150': 0,
         '240': 1,
@@ -34,6 +35,7 @@
         '480': 3,
         '640': 4
     };
+
     const escape_map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -44,11 +46,13 @@
         '`': '&#x60;',
         '=': '&#x3D;'
     };
+
     function escape_string(str) {
         return str.replace(/[&<>"'`=\/]/g, (char) => {
             return escape_map[char];
         });
     }
+
     function parse_caption(igobj, data) {
         if (
             typeof igobj.node.edge_media_to_caption.edges[0] !== 'undefined' && 
@@ -58,6 +62,7 @@
         ) {
             return igobj.node.edge_media_to_caption.edges[0].node.text;
         }
+
         if (
             typeof igobj.node.title !== 'undefined' &&
             igobj.node.title !== null &&
@@ -65,6 +70,7 @@
         ) {
             return igobj.node.title;
         }
+
         if (
             typeof igobj.node.accessibility_caption !== 'undefined' &&
             igobj.node.accessibility_caption !== null &&
@@ -72,6 +78,7 @@
         ) {
             return igobj.node.accessibility_caption;
         }
+
         return (this.is_tag ? data.name : data.username) + ' image ';
     }
 
@@ -84,28 +91,32 @@
                     options.on_error('Instagram Feed: It looks like the profile you are trying to fetch is age restricted. See https://github.com/jsanahuja/InstagramFeed/issues/26', 3);
                     return;
                 }
+
                 data = JSON.parse(data.substr(0, data.length - 1));
                 data = data.entry_data.ProfilePage || data.entry_data.TagPage;
 
                 let skipCaching = false;
                 if (typeof data === 'undefined') {
                     let cache_data_raw = localStorage.getItem(cache_data_key);
+
                     if (cache_data_raw !== null) {
                         data = JSON.parse(cache_data_raw);
                         skipCaching = true;
                     }
 
                     options.on_error('Instagram Feed: Your network has been temporary banned by Instagram because of too many requests. Consider increasing your "cache_time". See https://github.com/jsanahuja/jquery.instagramFeed/issues/25 and https://github.com/jsanahuja/jquery.instagramFeed/issues/101', 4);
+
                     if (!data) return;
                 }
+
                 if (!skipCaching && options.cache_time > 0) {
                     localStorage.setItem(cache_data_key, JSON.stringify(data));
                     localStorage.setItem(cache_data_key_cached, new Date().getTime());
                 }
             }
-        
+
             data = data[0].graphql.user || data[0].graphql.hashtag;
-    
+
             if (options.container != '') {
                 let html = '',
                     styles;
@@ -113,6 +124,7 @@
                 // Setting styles
                 if (options.styling) {
                     let width = (100 - options.margin * 2 * options.items_per_row) / options.items_per_row;
+
                     styles = {
                         profile_container: ' style="text-align:center;"',
                         profile_image: ' style="border-radius:10em;width:15%;max-width:125px;min-width:50px;"',
@@ -121,7 +133,7 @@
                         gallery_image: ' style="width:100%;"',
                         gallery_image_link: ' style="width:' + width + '%; margin:' + options.margin + '%;position:relative; display: inline-block; height: 100%;"'
                     };
-                    
+
                     if (options.display_captions) {
                         html += '<style>\
                             a[data-caption]:hover::after {\
@@ -156,13 +168,14 @@
                 if (options.display_profile) {
                     html += '<div class="instagram_profile"' + styles.profile_container + '>';
                     html += '<img class="instagram_profile_image" src="' + data.profile_pic_url  + '" alt="'+ (is_tag ? data.name + ' tag pic' : data.username + ' profile pic') + '"' + styles.profile_image + (options.lazy_load ? ' loading="lazy"' : '') + ' />';
-                    if (is_tag)
-                        html += '<p class="instagram_tag"' + styles.profile_name + '><a href="https://www.instagram.com/explore/tags/' + options.tag + '" rel="noopener" target="_blank">#' + options.tag + '</a></p>';
-                    else
-                        html += '<p class="instagram_username"' + styles.profile_name + '>@' + data.full_name + ' (<a href="https://www.instagram.com/' + options.username + '" rel="noopener" target="_blank">@' + options.username + '</a>)</p>';
 
-                    if (!is_tag && options.display_biography)
-                        html += '<p class="instagram_biography"' + styles.profile_biography + '>' + data.biography + '</p>';
+                    if (is_tag) {
+                        html += '<p class="instagram_tag"' + styles.profile_name + '><a href="https://www.instagram.com/explore/tags/' + options.tag + '" rel="noopener" target="_blank">#' + options.tag + '</a></p>';
+                    } else {
+                        html += '<p class="instagram_username"' + styles.profile_name + '>@' + data.full_name + ' (<a href="https://www.instagram.com/' + options.username + '" rel="noopener" target="_blank">@' + options.username + '</a>)</p>';
+                    }
+
+                    if (!is_tag && options.display_biography) html += '<p class="instagram_biography"' + styles.profile_biography + '>' + data.biography + '</p>';
 
                     html += '</div>';
                 }
@@ -180,7 +193,7 @@
                         html += '<div class="instagram_gallery">';
                         for (let i = 0; i < max; i++) {
                             let url = 'https://www.instagram.com/p/' + imgs[i].node.shortcode,
-                                image, type_resource, 
+                                image, type_resource,
                                 caption = escape_string(parse_caption(imgs[i], data));
 
                             switch (imgs[i].node.__typename) {
@@ -201,15 +214,18 @@
                             html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + image + '" alt="' + caption + '"' + styles.gallery_image + ' />';
                             html += '</a>';
                         }
+
                         html += '</div>';
                     }
                 }
 
                 if (options.display_igtv && typeof data.edge_felix_video_timeline !== 'undefined') {
                     let igtv = data.edge_felix_video_timeline.edges,
-                        max = (igtv.length > options.items) ? options.items : igtv.length
+                        max = (igtv.length > options.items) ? options.items : igtv.length;
+
                     if (igtv.length > 0) {
                         html += '<div class="instagram_igtv">';
+
                         for (let i = 0; i < max; i++) {
                             let url = 'https://www.instagram.com/p/' + igtv[i].node.shortcode,
                                 caption = escape_string(parse_caption(igtv[i], data));
@@ -218,6 +234,7 @@
                             html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + igtv[i].node.thumbnail_src + '" alt="' + caption + '"' + styles.gallery_image + ' />';
                             html += '</a>';
                         }
+
                         html += '</div>';
                     }
                 }
@@ -225,10 +242,7 @@
                 $(options.container).html(html);
             }
 
-            if (options.callback != null) {
-                options.callback(data);
-            }
-
+            if (options.callback != null) options.callback(data);
         }
 
         let options = $.fn.extend({}, defaults, opts);
@@ -236,9 +250,11 @@
             options.on_error('Instagram Feed: Error, no username nor tag defined.', 1);
             return false;
         }
+
         if (typeof options.get_data !== 'undefined') {
             console.warn('Instagram Feed: options.get_data is deprecated, options.callback is always called if defined');
         }
+
         if (options.callback == null && options.container == '') {
             options.on_error('Instagram Feed: Error, neither container found nor callback defined.', 2);
             return false;
@@ -249,14 +265,13 @@
             cache_data = null,
             cache_data_key = 'instagramFeed_' + (is_tag ? 't_' + options.tag : 'u_' + options.username),
             cache_data_key_cached = cache_data_key + '_cached';
-        
+
         if (options.cache_time > 0) {
             let cached_time = localStorage.getItem(cache_data_key_cached);
+
             if (cached_time !== null && parseInt(cached_time) + 1000 * 60 * options.cache_time > new Date().getTime()) {
                 let cache_data_raw = localStorage.getItem(cache_data_key);
-                if (cache_data_raw !== null) {
-                    cache_data = JSON.parse(cache_data_raw);
-                }
+                if (cache_data_raw !== null) cache_data = JSON.parse(cache_data_raw);
             }
         }
 
@@ -270,5 +285,4 @@
 
         return true;
     };
-
 })(jQuery);
