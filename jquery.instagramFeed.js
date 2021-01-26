@@ -45,11 +45,11 @@
         '=': '&#x3D;'
     };
     function escape_string(str) {
-        return str.replace(/[&<>"'`=\/]/g, function (char) {
+        return str.replace(/[&<>"'`=\/]/g, function(char) {
             return escape_map[char];
         });
     }
-    function parse_caption(igobj, data){
+    function parse_caption(igobj, data) {
         if (
             typeof igobj.node.edge_media_to_caption.edges[0] !== 'undefined' && 
             typeof igobj.node.edge_media_to_caption.edges[0].node !== 'undefined' && 
@@ -75,12 +75,12 @@
         return (this.is_tag ? data.name : data.username) + ' image ';
     }
 
-    $.instagramFeed = function (opts) {
+    $.instagramFeed = function(opts) {
         function on_get_insta_data(data) {
             if (typeof data === 'string') {
                 try {
                     data = data.split('window._sharedData = ')[1].split('<\/script>')[0];
-                } catch (e) {
+                } catch(e) {
                     options.on_error('Instagram Feed: It looks like the profile you are trying to fetch is age restricted. See https://github.com/jsanahuja/InstagramFeed/issues/26', 3);
                     return;
                 }
@@ -122,7 +122,7 @@
                         gallery_image_link: ' style="width:' + width + '%; margin:' + options.margin + '%;position:relative; display: inline-block; height: 100%;"'
                     };
                     
-                    if(options.display_captions){
+                    if (options.display_captions) {
                         html += '<style>\
                             a[data-caption]:hover::after {\
                                 content: attr(data-caption);\
@@ -141,7 +141,7 @@
                             }\
                         </style>';
                     }
-                }else{
+                } else {
                     styles = {
                         profile_container: '',
                         profile_image: '',
@@ -254,7 +254,7 @@
             var cached_time = localStorage.getItem(cache_data_key_cached);
             if (cached_time !== null && parseInt(cached_time) + 1000 * 60 * options.cache_time > new Date().getTime()) {
                 var cache_data_raw = localStorage.getItem(cache_data_key);
-                if(cache_data_raw !== null){
+                if (cache_data_raw !== null) {
                     cache_data = JSON.parse(cache_data_raw);
                 }
             }
