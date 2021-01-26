@@ -7,7 +7,7 @@
  *
  */
 (function ($) {
-    var defaults = {
+    const defaults = {
         'host': 'https://www.instagram.com/',
         'username': '',
         'tag': '',
@@ -27,14 +27,14 @@
         'cache_time': 360,
         'on_error': console.error
     };
-    var image_sizes = {
+    const image_sizes = {
         '150': 0,
         '240': 1,
         '320': 2,
         '480': 3,
         '640': 4
     };
-    var escape_map = {
+    const escape_map = {
         '&': '&amp;',
         '<': '&lt;',
         '>': '&gt;',
@@ -87,9 +87,9 @@
                 data = JSON.parse(data.substr(0, data.length - 1));
                 data = data.entry_data.ProfilePage || data.entry_data.TagPage;
 
-                var skipCaching = false;
+                let skipCaching = false;
                 if (typeof data === 'undefined') {
-                    var cache_data_raw = localStorage.getItem(cache_data_key);
+                    let cache_data_raw = localStorage.getItem(cache_data_key);
                     if (cache_data_raw !== null) {
                         data = JSON.parse(cache_data_raw);
                         skipCaching = true;
@@ -107,12 +107,12 @@
             data = data[0].graphql.user || data[0].graphql.hashtag;
     
             if (options.container != '') {
-                var html = '',
+                let html = '',
                     styles;
 
                 // Setting styles
                 if (options.styling) {
-                    var width = (100 - options.margin * 2 * options.items_per_row) / options.items_per_row;
+                    let width = (100 - options.margin * 2 * options.items_per_row) / options.items_per_row;
                     styles = {
                         profile_container: ' style="text-align:center;"',
                         profile_image: ' style="border-radius:10em;width:15%;max-width:125px;min-width:50px;"',
@@ -168,18 +168,18 @@
                 }
 
                 //image size
-                var image_index = typeof image_sizes[options.image_size] !== 'undefined' ? image_sizes[options.image_size] : image_sizes[640];
+                let image_index = typeof image_sizes[options.image_size] !== 'undefined' ? image_sizes[options.image_size] : image_sizes[640];
 
                 if (options.display_gallery) {
                     if (typeof data.is_private !== 'undefined' && data.is_private === true) {
                         html += '<p class="instagram_private"><strong>This profile is private</strong></p>';
                     } else {
-                        var imgs = (data.edge_owner_to_timeline_media || data.edge_hashtag_to_media).edges;
+                        let imgs = (data.edge_owner_to_timeline_media || data.edge_hashtag_to_media).edges;
                         max = (imgs.length > options.items) ? options.items : imgs.length;
 
                         html += '<div class="instagram_gallery">';
-                        for (var i = 0; i < max; i++) {
-                            var url = 'https://www.instagram.com/p/' + imgs[i].node.shortcode,
+                        for (let i = 0; i < max; i++) {
+                            let url = 'https://www.instagram.com/p/' + imgs[i].node.shortcode,
                                 image, type_resource, 
                                 caption = escape_string(parse_caption(imgs[i], data));
 
@@ -206,12 +206,12 @@
                 }
 
                 if (options.display_igtv && typeof data.edge_felix_video_timeline !== 'undefined') {
-                    var igtv = data.edge_felix_video_timeline.edges,
+                    let igtv = data.edge_felix_video_timeline.edges,
                         max = (igtv.length > options.items) ? options.items : igtv.length
                     if (igtv.length > 0) {
                         html += '<div class="instagram_igtv">';
-                        for (var i = 0; i < max; i++) {
-                            var url = 'https://www.instagram.com/p/' + igtv[i].node.shortcode,
+                        for (let i = 0; i < max; i++) {
+                            let url = 'https://www.instagram.com/p/' + igtv[i].node.shortcode,
                                 caption = escape_string(parse_caption(igtv[i], data));
 
                             html += '<a href="' + url + '"' + (options.display_captions ? ' data-caption="' + caption + '"' : '') + ' rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
@@ -231,7 +231,7 @@
 
         }
 
-        var options = $.fn.extend({}, defaults, opts);
+        let options = $.fn.extend({}, defaults, opts);
         if (options.username == '' && options.tag == '') {
             options.on_error('Instagram Feed: Error, no username nor tag defined.', 1);
             return false;
@@ -244,16 +244,16 @@
             return false;
         }
 
-        var is_tag = options.username == '',
+        let is_tag = options.username == '',
             url = is_tag ? options.host + 'explore/tags/' + options.tag + '/' : options.host + options.username + '/',
             cache_data = null,
             cache_data_key = 'instagramFeed_' + (is_tag ? 't_' + options.tag : 'u_' + options.username),
             cache_data_key_cached = cache_data_key + '_cached';
         
         if (options.cache_time > 0) {
-            var cached_time = localStorage.getItem(cache_data_key_cached);
+            let cached_time = localStorage.getItem(cache_data_key_cached);
             if (cached_time !== null && parseInt(cached_time) + 1000 * 60 * options.cache_time > new Date().getTime()) {
-                var cache_data_raw = localStorage.getItem(cache_data_key);
+                let cache_data_raw = localStorage.getItem(cache_data_key);
                 if (cache_data_raw !== null) {
                     cache_data = JSON.parse(cache_data_raw);
                 }
