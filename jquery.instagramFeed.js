@@ -6,7 +6,7 @@
  * https://github.com/jsanahuja/jquery.instagramFeed
  *
  */
-(function ($) {
+(($) => {
     const defaults = {
         'host': 'https://www.instagram.com/',
         'username': '',
@@ -45,7 +45,7 @@
         '=': '&#x3D;'
     };
     function escape_string(str) {
-        return str.replace(/[&<>"'`=\/]/g, function(char) {
+        return str.replace(/[&<>"'`=\/]/g, (char) => {
             return escape_map[char];
         });
     }
@@ -263,7 +263,7 @@
         if (cache_data !== null) {
             on_get_insta_data(cache_data);
         } else {
-            $.get(url, on_get_insta_data).fail(function (e) {
+            $.get(url, on_get_insta_data).fail((e) => {
                 options.on_error('Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: ' + e.status, 5);
             });
         }
