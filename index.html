@@ -552,6 +552,11 @@
                     role="tabpanel" aria-labelledby="example6-tab">
                     <h3>Example 6: Using GraphQL API</h3>
                     <p>Use <i>user_id</i> to fetch data directly from Instagram GraphQL API</p>
+                    <p>To find the user_id based on the username, use following URL<br>    
+                    <code>https://www.instagram.com/web/search/topsearch/?query=&lt;username&gt;</code></p>
+                    <p>The result page will contain text starting with such structure<br>
+                    <code>{"users":[{"position":0,"user":{"pk":"&lt;user_id&gt;","username":"&lt;username&gt;..."</code></p>
+                    <p>Where &lt;user_id&gt; is the user_id we are looking for.</p>
                     <div id="instagram-feed6" class="instagram_feed"></div>
                     <div class="section_code py-3">
                         <div>Code:</div>
