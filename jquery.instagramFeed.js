@@ -1,7 +1,7 @@
 /*!
  * jquery.instagramFeed
  *
- * @version 2.1.0
+ * @version 2.1.1
  *
  * https://github.com/jsanahuja/jquery.instagramFeed
  *
@@ -125,7 +125,10 @@
                 }
                 data = JSON.parse(data.substr(0, data.length - 1));
                 data = data.entry_data.ProfilePage || data.entry_data.TagPage;
-                return data[0].graphql.user || data[0].graphql.hashtag;
+                if(typeof data !== "undefined"){
+                    return data[0].graphql.user || data[0].graphql.hashtag;
+                }
+                return false;
             break;
             case "userid":
                 if(typeof data.data.user !== "undefined"){
