@@ -157,26 +157,35 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="d-flex flex-wrap">
-                            <code class="text-bold flex-grow-1">username</code>
+                        <td>
+                            <code class="text-bold flex-grow-1">username</code><br/>
                             <span class="text-danger text-small text-italic">Required / Optional</span>
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Instagram username from where to retrieve the feed. Required if <span class="text-small text-italic">tag</span> is not defined.</td>
+                        <td>Instagram username from where to retrieve the feed. Required if <span class="text-small text-italic">tag</span> and <span class="text-small text-italic">user_id</span> are not defined.</td>
                     </tr>
                     <tr>
-                        <td class="d-flex flex-wrap">
-                            <code class="text-bold flex-grow-1">tag</code>
+                        <td>
+                            <code class="text-bold flex-grow-1">tag</code><br/>
                             <span class="text-danger text-small text-italic">Required / Optional</span>
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Instagram tag from where to retrieve the feed. Required if <span class="text-small text-italic">username</span> is not defined.</td>
+                        <td>Instagram tag from where to retrieve the feed. Required if <span class="text-small text-italic">username</span> and <span class="text-small text-italic">user_id</span> are not defined.</td>
                     </tr>
                     <tr>
-                        <td class="d-flex flex-wrap">
-                            <code class="text-bold flex-grow-1">container</code>
+                        <td>
+                            <code class="text-bold flex-grow-1">user_id</code><br/>
+                            <span class="text-danger text-small text-italic">Required / Optional</span>
+                        </td>
+                        <td><em>String</em></td>
+                        <td><code>null</code></td>
+                        <td>Instagram user ID for GraphQL API. Required if <span class="text-small text-italic">username</span> and <span class="text-small text-italic">tag</span> are not defined.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code class="text-bold flex-grow-1">container</code><br/>
                             <span class="text-danger text-small text-italic">Required / Optional</span>
                         </td>
                         <td><em>String</em></td>
@@ -184,8 +193,8 @@
                         <td>Selector where to place the feed. Required if callback is not defined.</td>
                     </tr>
                     <tr>
-                        <td class="d-flex flex-wrap">
-                            <code class="text-bold flex-grow-1">callback</code>
+                        <td>
+                            <code class="text-bold flex-grow-1">callback</code><br/>
                             <span class="text-danger text-small text-italic">Required / Optional</span>
                         </td>
                         <td><em>function(data)</em></td>
@@ -198,7 +207,7 @@
                         </td>
                         <td><em>Boolean</em></td>
                         <td><code>true</code></td>
-                        <td>Enables displaying the profile</td>
+                        <td>Enables displaying the profile. Not compatible when loading from GraphQL API with <span class="text-small text-italic">user_id</span></td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -206,7 +215,7 @@
                         </td>
                         <td><em>Boolean</em></td>
                         <td><code>true</code></td>
-                        <td>Enables displaying the biography. Not compatible when loading a <span class="text-small text-italic">tag</span> feed</td>
+                        <td>Enables displaying the biography. Not compatible when loading a <span class="text-small text-italic">tag</span> or from GraphQL API with <span class="text-small text-italic">user_id</span></td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -230,7 +239,15 @@
                         </td>
                         <td><em>Boolean</em></td>
                         <td><code>false</code></td>
-                        <td>Enables displaying the IGTV feed if available. Only for users</td>
+                        <td>Enables displaying the IGTV feed if available. Not compatible when loading a <span class="text-small text-italic">tag</span> or from GraphQL API with <span class="text-small text-italic">user_id</span></td>
+                    </tr>
+                    <tr>
+                        <td class="d-flex flex-wrap">
+                            <code class="text-bold flex-grow-1">max_tries</code>
+                        </td>
+                        <td><em>number [Int]</em></td>
+                        <td><code>8</code></td>
+                        <td>Number of tries to fetch Instagram data until throwing. Useful to avoid arbitrary CORS issues.</td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
@@ -362,6 +379,12 @@
                            aria-controls="example7" aria-selected="false"
                            data-toggle="tab">Example 7</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="example8-tab" 
+                           href="#example8" role="tab"
+                           aria-controls="example8" aria-selected="false"
+                           data-toggle="tab">Example 8</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -386,6 +409,7 @@
                 'display_biography': true,
                 'display_gallery': true,
                 'display_captions': true,
+                'max_tries': 8,
                 'callback': null,
                 'styling': true,
                 'items': 8,
@@ -523,9 +547,38 @@
                     </div>                
                 </div>
 
+                
                 <div class="tab-pane fade" id="example6" 
                     role="tabpanel" aria-labelledby="example6-tab">
-                    <h3>Example 6: Don't like our styles at all?</h3>
+                    <h3>Example 6: Using GraphQL API</h3>
+                    <p>Use <i>user_id</i> to fetch data directly from Instagram GraphQL API</p>
+                    <div id="instagram-feed6" class="instagram_feed"></div>
+                    <div class="section_code py-3">
+                        <div>Code:</div>
+<pre><code class="language-html">&lt;script src="jquery.instagramFeed.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    (function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'user_id': '2220311520',
+                'container': "#instagram-feed6",
+                'display_gallery': true,
+                'display_captions': true,
+                'styling': true,
+                'items': 18,
+                'items_per_row': 3,
+                'margin': 1 
+            });
+        });
+    })(jQuery);
+&lt;/script&gt;
+</code></pre>
+                    </div>                
+                </div>
+
+                <div class="tab-pane fade" id="example7" 
+                    role="tabpanel" aria-labelledby="example7-tab">
+                    <h3>Example 7: Don't like our styles at all?</h3>
                     <p>Make your owns disabling <i>styling</i></p>
                     <div class="instagram_feed info">
                         <p>This is the html you will have (Note we have enabled profile and biography in this case).</p>
@@ -573,9 +626,9 @@
                     </div>                
                 </div>
 
-                <div class="tab-pane fade" id="example7" 
-                    role="tabpanel" aria-labelledby="example7-tab">
-                    <h3>Example 7: Don't either like our template?</h3>
+                <div class="tab-pane fade" id="example8" 
+                    role="tabpanel" aria-labelledby="example8-tab">
+                    <h3>Example 8: Don't either like our template?</h3>
                     <p>Define a <i>callback</i> and do not define a <i>container</i></p>
                     <div class="instagram_feed info">
                         <p>This is the format you will get.</p>
@@ -632,6 +685,7 @@
                     'display_biography': true,
                     'display_gallery': true,
                     'display_captions': true,
+                    'max_tries': 8,
                     'callback': null,
                     'styling': true,
                     'items': 8,
@@ -690,6 +744,16 @@
                     'items': 8,
                     'items_per_row': 4,
                     'margin': 1
+                });
+                $.instagramFeed({
+                    'user_id': '20311520',
+                    'container': "#instagram-feed6",
+                    'display_gallery': true,
+                    'display_captions': true,
+                    'styling': true,
+                    'items': 18,
+                    'items_per_row': 3,
+                    'margin': 1 
                 });
                 
                 //example 7
