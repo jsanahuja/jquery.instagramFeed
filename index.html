@@ -163,7 +163,7 @@
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Instagram username from where to retrieve the feed. Required if <span class="text-small text-italic">tag</span> and <span class="text-small text-italic">user_id</span> are not defined.</td>
+                        <td>Instagram username from where to retrieve the feed. Required if <span class="text-small text-italic">tag</span>, <span class="text-small text-italic">location</span> and <span class="text-small text-italic">user_id</span> are not defined.</td>
                     </tr>
                     <tr>
                         <td>
@@ -172,7 +172,16 @@
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Instagram tag from where to retrieve the feed. Required if <span class="text-small text-italic">username</span> and <span class="text-small text-italic">user_id</span> are not defined.</td>
+                        <td>Instagram tag from where to retrieve the feed. Required if <span class="text-small text-italic">username</span>, <span class="text-small text-italic">location</span> and <span class="text-small text-italic">user_id</span> are not defined.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code class="text-bold flex-grow-1">location</code><br/>
+                            <span class="text-danger text-small text-italic">Required / Optional</span>
+                        </td>
+                        <td><em>String</em></td>
+                        <td><code>null</code></td>
+                        <td>Instagram location '<span class="text-small">{id}/{slug}</span>' from where to retrieve the feed. Required if <span class="text-small text-italic">username</span>, <span class="text-small text-italic">tag</span> and <span class="text-small text-italic">user_id</span> are not defined.</td>
                     </tr>
                     <tr>
                         <td>
@@ -181,7 +190,7 @@
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Instagram user ID for GraphQL API. Required if <span class="text-small text-italic">username</span> and <span class="text-small text-italic">tag</span> are not defined.</td>
+                        <td>Instagram user ID for GraphQL API. Required if <span class="text-small text-italic">username</span>, <span class="text-small text-italic">location</span> and <span class="text-small text-italic">tag</span> are not defined.</td>
                     </tr>
                     <tr>
                         <td>
