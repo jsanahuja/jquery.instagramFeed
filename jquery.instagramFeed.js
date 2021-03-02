@@ -141,9 +141,9 @@
         }
     }
 
-    function request_data(url, type, tries, callback, isDefaultHost, googlePrefix){
+    function request_data(url, type, tries, callback, autoFallback, googlePrefix){
         var prefixedUrl;
-        if(isDefaultHost && googlePrefix){
+        if(autoFallback && googlePrefix){
             prefixedUrl = 'https://images' + ~~(Math.random() * 3333) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + url;
         }
         $.get(prefixedUrl || url, function(response){
@@ -157,7 +157,7 @@
         }).fail(function (e) {
             if(tries > 1){
                 console.warn("Instagram Feed: Request failed, " + (tries-1) + " tries left. Retrying...");
-                request_data(url, type, tries-1, callback, isDefaultHost, !googlePrefix);
+                request_data(url, type, tries-1, callback, autoFallback, !googlePrefix);
             }else{
                 callback(false, e);
             }
@@ -206,7 +206,7 @@
                         options.on_error("Instagram Feed: Unable to fetch the given user/tag. Instagram responded with the status code: " + exception.status, 5);
                     }
                 }
-            }, options.host === defaults.host, false);
+            }, options.host === defaults.host && options.type != "userid", false);
         }
     }
 
