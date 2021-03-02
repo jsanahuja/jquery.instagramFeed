@@ -190,7 +190,7 @@
                         </td>
                         <td><em>String</em></td>
                         <td><code>null</code></td>
-                        <td>Instagram user ID for GraphQL API. Required if <span class="text-small text-italic">username</span>, <span class="text-small text-italic">location</span> and <span class="text-small text-italic">tag</span> are not defined.</td>
+                        <td>Instagram user ID for GraphQL API. Required if <span class="text-small text-italic">username</span>, <span class="text-small text-italic">tag</span> and <span class="text-small text-italic">location</span> are not defined. <strong class="text-danger">Not recommended as Instagram is CORS restricted again</strong></td>
                     </tr>
                     <tr>
                         <td>
@@ -312,7 +312,10 @@
                         </td>
                         <td><em>String [url]</em></td>
                         <td><code>https://www.instagram.com/</code></td>
-                        <td>URL where to fetch the data. Useful if instagram changes CORS policy</td>
+                        <td>
+                            URL where to fetch the data. Useful if instagram changes CORS policy. <strong class="text-danger">Recommended as Instagram is CORS restricted again. Set to:</strong><br/>
+                            <span class="text-danger text-small text-italic">'https://images' + ~~(Math.random() * 3333) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=https://www.instagram.com/'</span>
+                        </td>
                     </tr>
                     <tr>
                         <td class="d-flex flex-wrap">
