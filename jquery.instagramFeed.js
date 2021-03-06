@@ -147,7 +147,7 @@
             prefixedUrl = 'https://images' + ~~(Math.random() * 3333) + '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=' + url;
         }
         $.get(prefixedUrl || url, function(response){
-            data = parse_response(type, response);
+            var data = parse_response(type, response);
             if(data !== false){
                 callback(data);
             }else{
